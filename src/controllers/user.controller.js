@@ -1,10 +1,10 @@
 import { token } from 'morgan';
 import {getConnection, sql, queries} from '../database';
 import {encrypt,compare} from '../helpers/handleBcrypt';
+import { validarNombre , validarEmail, validarPassword, validarNumero,validarUser } from '../helpers/validateData';
 
 
 export const getUsuarios =  async (req, res) => { 
-    
 
     try {
         const pool = await getConnection();
@@ -26,13 +26,34 @@ export const newUsuario = async (req, res) => {
 
     const {nombre , apellido, email, password, salario, rol, userName } = req.body;
 
-    const passwordHash = await encrypt(password);
 
+    if( validarNombre(nombre) == false || validarNombre(apellido) == false){
 
-    if( nombre == null || apellido == null ){
-
-        return res.status(400).json({ msg: 'Falta Datos'})
+        return res.status(400).json({ msg: 'Error: Nombre o apellido no valido'})
     }
+
+    if ( validarEmail(email) == false ) {
+
+        return res.status(400).json({ msg: 'Error: Email no valido'})
+        
+    }
+
+    if(validarPassword(password) == false) {
+
+        return res.status(400).json({ msg: 'Error: clave debe tener numeros y letras, 8 digitos'})
+    }
+
+    if (validarNumero(salario) == false ) {
+        
+        return res.status(400).json({ msg: 'Error: Salario no valido'})
+    }
+
+    if ( await validarUser(userName) == false) {
+
+        return res.status(400).json({ msg: 'Error: Usuario del sistema no se debe repetir y debe tener al menos 5 carateres'})
+    }
+
+    const passwordHash = await encrypt(password);
 
     console.log(nombre, apellido, email, passwordHash, salario, rol, userName );
 
@@ -54,7 +75,7 @@ export const newUsuario = async (req, res) => {
         
     } catch (error) {
         res.status(500);
-        res.send(error.message);
+        res.send(error.message + 'El rol no existe ');
     }
 
 };
