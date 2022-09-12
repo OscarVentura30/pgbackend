@@ -4,7 +4,8 @@
   "description": "apis routes",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "build": "babel src -d dist",
+    "start": "node dist",
     "dev": "nodemon src/index.js --exec babel-node"
   },
   "author": "",
