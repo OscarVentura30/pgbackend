@@ -12,6 +12,7 @@ var queries = {
   getCountUsers: 'select count(*) from usuario_t',
   updateUserById: 'update usuario_t set nombre = @nombre , apellido = @apellido , email = @email , password = @password ,salario = @salario, rol = @rol , userName = @userName where id = @id',
   loginUser: 'select * from usuario_t where userName = @userName',
-  validateUser: 'select * from usuario_t where userName = @userName'
+  validateUser: 'select * from usuario_t where userName = @userName',
+  validateIdUser: 'select id from usuario_t where id = @id'
 };
 exports.queries = queries;

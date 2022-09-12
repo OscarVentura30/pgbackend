@@ -180,24 +180,38 @@ var getUserById = /*#__PURE__*/function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             id = req.params.id;
-            _context3.next = 3;
+            _context3.prev = 1;
+            _context3.next = 4;
             return (0, _database.getConnection)();
 
-          case 3:
+          case 4:
             pool = _context3.sent;
-            _context3.next = 6;
+            _context3.next = 7;
             return pool.request().input("id", id).query(_database.queries.getUserById);
 
-          case 6:
+          case 7:
             result = _context3.sent;
-            res.send(result.recordset[0]);
 
-          case 8:
+            if (result.recordset[0] == null) {
+              res.json('No se encuentra Usuario ');
+            }
+
+            res.send(result.recordset[0]);
+            _context3.next = 16;
+            break;
+
+          case 12:
+            _context3.prev = 12;
+            _context3.t0 = _context3["catch"](1);
+            res.status(500);
+            res.send(_context3.t0.message + ' / no se econtro usuario ' + id);
+
+          case 16:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3);
+    }, _callee3, null, [[1, 12]]);
   }));
 
   return function getUserById(_x5, _x6) {
@@ -216,23 +230,50 @@ var deleteUserById = /*#__PURE__*/function () {
           case 0:
             id = req.params.id;
             _context4.next = 3;
-            return (0, _database.getConnection)();
+            return (0, _validateData.validarIdUsuario)(id);
 
           case 3:
-            pool = _context4.sent;
-            _context4.next = 6;
-            return pool.request().input("id", id).query(_database.queries.deleteUserById);
+            _context4.t0 = _context4.sent;
+
+            if (!(_context4.t0 == false)) {
+              _context4.next = 6;
+              break;
+            }
+
+            return _context4.abrupt("return", res.status(400).json({
+              msg: 'Id de usuario no existe, no es posible eliminar'
+            }));
 
           case 6:
-            result = _context4.sent;
-            res.sendStatus(204);
+            _context4.prev = 6;
+            _context4.next = 9;
+            return (0, _database.getConnection)();
 
-          case 8:
+          case 9:
+            pool = _context4.sent;
+            _context4.next = 12;
+            return pool.request().input("id", id).query(_database.queries.deleteUserById);
+
+          case 12:
+            result = _context4.sent;
+            res.status(204).json({
+              msg: 'Eliminar ok'
+            });
+            _context4.next = 20;
+            break;
+
+          case 16:
+            _context4.prev = 16;
+            _context4.t1 = _context4["catch"](6);
+            res.status(500);
+            res.send(_context4.t1.message + 'Error al eliminar');
+
+          case 20:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4);
+    }, _callee4, null, [[6, 16]]);
   }));
 
   return function deleteUserById(_x7, _x8) {
@@ -249,24 +290,33 @@ var getCountUsers = /*#__PURE__*/function () {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.next = 2;
+            _context5.prev = 0;
+            _context5.next = 3;
             return (0, _database.getConnection)();
 
-          case 2:
+          case 3:
             pool = _context5.sent;
-            _context5.next = 5;
+            _context5.next = 6;
             return pool.request().query(_database.queries.getCountUsers);
 
-          case 5:
+          case 6:
             result = _context5.sent;
             res.json(result.recordset[0]['']);
+            _context5.next = 14;
+            break;
 
-          case 7:
+          case 10:
+            _context5.prev = 10;
+            _context5.t0 = _context5["catch"](0);
+            res.status(500);
+            res.send(_context5.t0.message + 'Erro al contar');
+
+          case 14:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee5);
+    }, _callee5, null, [[0, 10]]);
   }));
 
   return function getCountUsers(_x9, _x10) {
@@ -278,7 +328,7 @@ exports.getCountUsers = getCountUsers;
 
 var updateUserById = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-    var _req$body2, nombre, apellido, email, password, salario, rol, userName, id, pool, result;
+    var _req$body2, nombre, apellido, email, password, salario, rol, userName, id, passwordHash, pool, result;
 
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) {
@@ -293,36 +343,60 @@ var updateUserById = /*#__PURE__*/function () {
             }
 
             return _context6.abrupt("return", res.status(400).json({
-              msg: 'Falta Datos'
+              msg: 'Falta Datos obligatorios'
             }));
 
           case 4:
             _context6.next = 6;
-            return (0, _database.getConnection)();
+            return (0, _validateData.validarIdUsuario)(id);
 
           case 6:
-            pool = _context6.sent;
-            _context6.next = 9;
-            return pool.request().input("id", id).input("nombre", _database.sql.VarChar, nombre).input("apellido", _database.sql.VarChar, apellido).input("email", _database.sql.VarChar, email).input("password", _database.sql.VarChar, password).input("salario", _database.sql.Numeric, salario).input("rol", _database.sql.Int, rol).input("userName", _database.sql.VarChar, userName).query(_database.queries.updateUserById);
+            _context6.t0 = _context6.sent;
+
+            if (!(_context6.t0 == false)) {
+              _context6.next = 9;
+              break;
+            }
+
+            return _context6.abrupt("return", res.status(400).json({
+              msg: 'Id de usuario no existe'
+            }));
 
           case 9:
-            result = _context6.sent;
-            res.json({
-              nombre: nombre,
-              apellido: apellido,
-              email: email,
-              password: password,
-              salario: salario,
-              rol: rol,
-              userName: userName
-            });
+            _context6.next = 11;
+            return (0, _handleBcrypt.encrypt)(password);
 
           case 11:
+            passwordHash = _context6.sent;
+            _context6.prev = 12;
+            _context6.next = 15;
+            return (0, _database.getConnection)();
+
+          case 15:
+            pool = _context6.sent;
+            _context6.next = 18;
+            return pool.request().input("id", id).input("nombre", _database.sql.VarChar, nombre).input("apellido", _database.sql.VarChar, apellido).input("email", _database.sql.VarChar, email).input("password", _database.sql.VarChar, passwordHash).input("salario", _database.sql.Numeric, salario).input("rol", _database.sql.Int, rol).input("userName", _database.sql.VarChar, userName).query(_database.queries.updateUserById);
+
+          case 18:
+            result = _context6.sent;
+            res.json({
+              msg: 'Status: 200 , actualizar ok'
+            });
+            _context6.next = 26;
+            break;
+
+          case 22:
+            _context6.prev = 22;
+            _context6.t1 = _context6["catch"](12);
+            res.status(500);
+            res.send(_context6.t1.message + '/ Error al Actualizar ');
+
+          case 26:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6);
+    }, _callee6, null, [[12, 22]]);
   }));
 
   return function updateUserById(_x11, _x12) {

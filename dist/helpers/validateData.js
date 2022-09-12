@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validarUser = exports.validarPassword = exports.validarNumero = exports.validarNombre = exports.validarEmail = void 0;
+exports.validarUser = exports.validarPassword = exports.validarNumero = exports.validarNombre = exports.validarIdUsuario = exports.validarEmail = void 0;
 
 var _database = require("../database");
 
@@ -178,3 +178,62 @@ var validarUser = /*#__PURE__*/function () {
 }();
 
 exports.validarUser = validarUser;
+
+var validarIdUsuario = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id) {
+    var pool, result;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!(id == null || id == "")) {
+              _context2.next = 2;
+              break;
+            }
+
+            return _context2.abrupt("return", false);
+
+          case 2:
+            _context2.prev = 2;
+            _context2.next = 5;
+            return (0, _database.getConnection)();
+
+          case 5:
+            pool = _context2.sent;
+            _context2.next = 8;
+            return pool.request().input("id", _database.sql.Int, id).query(_database.queries.validateIdUser);
+
+          case 8:
+            result = _context2.sent;
+
+            if (!(result.recordset[0].id == id)) {
+              _context2.next = 11;
+              break;
+            }
+
+            return _context2.abrupt("return", true);
+
+          case 11:
+            return _context2.abrupt("return", false);
+
+          case 14:
+            _context2.prev = 14;
+            _context2.t0 = _context2["catch"](2);
+            console.log('error interno 500, no es posible validar id');
+            console.log(_context2.t0);
+            return _context2.abrupt("return", false);
+
+          case 19:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[2, 14]]);
+  }));
+
+  return function validarIdUsuario(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.validarIdUsuario = validarIdUsuario;

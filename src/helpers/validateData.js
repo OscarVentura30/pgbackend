@@ -161,4 +161,39 @@ export const validarUser = async (user) => {
 
 };
 
+export const validarIdUsuario = async (id) => {
+
+    if (id == null || id == "") {
+
+        return false;
+        
+    }
+
+    try {
+
+        const pool = await getConnection();
+
+        const result = await pool.request()
+                            .input("id", sql.Int , id)
+                            .query(queries.validateIdUser);
+
+        if (result.recordset[0].id == id) {
+
+            return true
+
+        }
+
+        return false
+
+        
+    } catch (error) {
+
+        console.log('error interno 500, no es posible validar id');
+        console.log(error);
+        return false;
+        
+    }
+
+}
+
 

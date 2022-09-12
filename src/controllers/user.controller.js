@@ -1,7 +1,7 @@
 import { token } from 'morgan';
 import {getConnection, sql, queries} from '../database';
 import {encrypt,compare} from '../helpers/handleBcrypt';
-import { validarNombre , validarEmail, validarPassword, validarNumero,validarUser } from '../helpers/validateData';
+import { validarNombre , validarEmail, validarPassword, validarNumero,validarUser, validarIdUsuario } from '../helpers/validateData';
 
 
 export const getUsuarios =  async (req, res) => { 
@@ -84,14 +84,30 @@ export const getUserById = async (req, res) => {
 
     const { id } = req.params;
 
-    const pool = await getConnection();
+    try {
 
-    const result = await pool
-    .request()
-    .input("id" , id)
-    .query(queries.getUserById); 
+        const pool = await getConnection();
 
-    res.send(result.recordset[0]);
+        const result = await pool
+        .request()
+        .input("id" , id)
+        .query(queries.getUserById); 
+
+        if (result.recordset[0] == null) {
+
+            res.json ('No se encuentra Usuario ')
+        }
+
+        res.send(result.recordset[0]);
+        
+    } catch (error) {
+
+        res.status(500);
+        res.send(error.message + ' / no se econtro usuario ' + id );
+        
+    }
+
+    
 
 };
 
@@ -99,26 +115,53 @@ export const deleteUserById = async (req, res) => {
 
     const { id } = req.params;
 
-    const pool = await getConnection();
+    if ( await(validarIdUsuario(id)) == false) {
+        
+        return res.status(400).json({ msg: 'Id de usuario no existe, no es posible eliminar'})
+    }
 
-    const result = await pool
-    .request()
-    .input("id" , id)
-    .query(queries.deleteUserById); 
+    try {
 
-    res.sendStatus(204);
+        const pool = await getConnection();
+
+        const result = await pool
+        .request()
+        .input("id" , id)
+        .query(queries.deleteUserById); 
+
+        res.status(204).json({ msg: 'Eliminar ok'});
+        
+    } catch (error) {
+
+        res.status(500);
+        res.send(error.message + 'Error al eliminar');
+        
+    }
+
+    
 
 };
 
 export const getCountUsers = async (req, res) => {
 
-    const pool = await getConnection();
+    try {
 
-    const result = await pool
-    .request()
-    .query(queries.getCountUsers); 
+        const pool = await getConnection();
 
-    res.json(result.recordset[0]['']);
+        const result = await pool
+        .request()
+        .query(queries.getCountUsers); 
+
+        res.json(result.recordset[0]['']);
+        
+    } catch (error) {
+
+        res.status(500);
+        res.send(error.message + 'Erro al contar');
+        
+    }
+
+    
 
     
 
@@ -127,28 +170,46 @@ export const getCountUsers = async (req, res) => {
 export const updateUserById = async (req, res ) => {
 
     const {nombre , apellido, email, password, salario, rol, userName } = req.body;
+
     const {id} = req.params;
 
     if( nombre == null || apellido == null ){
 
-        return res.status(400).json({ msg: 'Falta Datos'})
+        return res.status(400).json({ msg: 'Falta Datos obligatorios'})
     }
 
-    const pool = await getConnection();
-    
-    const result = await pool
-    .request()
-    .input("id" , id)
-    .input("nombre" , sql.VarChar , nombre)
-    .input("apellido", sql.VarChar , apellido)
-    .input("email", sql.VarChar , email )
-    .input("password", sql.VarChar, password)
-    .input("salario" , sql.Numeric , salario)
-    .input("rol" , sql.Int , rol)
-    .input("userName", sql.VarChar , userName)
-    .query(queries.updateUserById);
+    if ( await(validarIdUsuario(id)) == false) {
+        
+        return res.status(400).json({ msg: 'Id de usuario no existe'})
+    }
 
-    res.json ({nombre , apellido, email, password, salario, rol, userName });
+    const passwordHash = await encrypt(password);
+
+    try {
+
+        const pool = await getConnection();
+    
+        const result = await pool
+        .request()
+        .input("id" , id)
+        .input("nombre" , sql.VarChar , nombre)
+        .input("apellido", sql.VarChar , apellido)
+        .input("email", sql.VarChar , email )
+        .input("password", sql.VarChar, passwordHash)
+        .input("salario" , sql.Numeric , salario)
+        .input("rol" , sql.Int , rol)
+        .input("userName", sql.VarChar , userName)
+        .query(queries.updateUserById);
+    
+        res.json ({msg: 'Status: 200 , actualizar ok'});
+        
+    } catch (error) {
+        
+        res.status(500);
+        res.send(error.message + '/ Error al Actualizar ');
+
+    }
+
 
 };
 
