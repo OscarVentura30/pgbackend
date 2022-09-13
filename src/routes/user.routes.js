@@ -4,7 +4,7 @@ import {verifyToken} from '../helpers/verifyToken';
 
 const router = Router();
 
-router.get('/usuarios', verifyToken, getUsuarios); 
+router.get('/usuarios', getUsuarios); 
 
 router.get('/usuarios/:id' , getUserById);
 

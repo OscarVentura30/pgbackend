@@ -12,7 +12,7 @@ var _user = require("../controllers/user.controller");
 var _verifyToken = require("../helpers/verifyToken");
 
 var router = (0, _express.Router)();
-router.get('/usuarios', _verifyToken.verifyToken, _user.getUsuarios);
+router.get('/usuarios', _user.getUsuarios);
 router.get('/usuarios/:id', _user.getUserById);
 router.get('/usuarioscount', _user.getCountUsers);
 router.post('/usuarios', _user.newUsuario);
