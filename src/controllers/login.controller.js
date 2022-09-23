@@ -67,3 +67,22 @@ export const logoutProfile = (req, res) => {
     return res.json({auth: false, user});
 
 };
+
+export const homeView = (req, res) => {
+
+    return res.render ('home', {
+        user: 'oscar',
+        titulo: 'inicio',
+    });
+
+};
+
+export const loginView = (req , res) => {
+
+    return res.render ('login');
+
+};
+
+export const indexView = (req, res) => {
+    return res.render ('index');
+}

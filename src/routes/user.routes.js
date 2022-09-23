@@ -4,17 +4,17 @@ import {verifyToken} from '../helpers/verifyToken';
 
 const router = Router();
 
-router.get('/usuarios',verifyToken,  getUsuarios); 
+router.get('/api/usuarios',verifyToken,  getUsuarios); 
 
-router.get('/usuarios/:id' ,verifyToken, getUserById);
+router.get('/api/usuarios/:id' ,verifyToken, getUserById);
 
-router.get('/usuarioscount' ,verifyToken, getCountUsers); 
+router.get('/api/usuarioscount' ,verifyToken, getCountUsers); 
 
-router.post('/usuarios' ,verifyToken,  newUsuario ); 
+router.post('/api/usuarios' ,verifyToken,  newUsuario ); 
 
-router.delete('/usuarios/:id' ,verifyToken, deleteUserById); 
+router.delete('/api/usuarios/:id' ,verifyToken, deleteUserById); 
 
-router.put('/usuarios/:id' ,verifyToken, updateUserById); 
+router.put('/api/usuarios/:id' ,verifyToken, updateUserById); 
 
  
 
