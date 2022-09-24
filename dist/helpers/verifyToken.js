@@ -19,15 +19,17 @@ var jwt = require('jsonwebtoken');
 
 var verifyToken = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res, next) {
-    var tokenUser, decoded;
+    var cookies, tokenUser, decoded;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            tokenUser = req.headers['x-access-token'];
+            cookies = req.cookies;
+            tokenUser = cookies.xtoken;
+            console.log(tokenUser);
 
             if (tokenUser) {
-              _context.next = 3;
+              _context.next = 5;
               break;
             }
 
@@ -36,7 +38,7 @@ var verifyToken = /*#__PURE__*/function () {
               message: 'No tiene autorizacion para esto'
             }));
 
-          case 3:
+          case 5:
             decoded = jwt.verify(tokenUser, process.env.TEXTSECRET, function (error, auth) {
               if (error) {
                 return res.status(403).json({
@@ -44,13 +46,13 @@ var verifyToken = /*#__PURE__*/function () {
                   message: 'Token Invalido'
                 });
               } else {
-                req.token = decoded;
-                console.log(decoded);
+                var dataToken = jwt.decode(tokenUser);
+                console.log(dataToken);
                 next();
               }
             });
 
-          case 4:
+          case 6:
           case "end":
             return _context.stop();
         }

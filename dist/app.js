@@ -11,6 +11,8 @@ var _config = _interopRequireDefault(require("./config"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+var cookieParser = require('cookie-parser');
+
 var app = (0, _express["default"])(); //HBS
 
 var hbs = require('hbs');
@@ -27,5 +29,6 @@ app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: false
 }));
+app.use(cookieParser());
 var _default = app;
 exports["default"] = _default;

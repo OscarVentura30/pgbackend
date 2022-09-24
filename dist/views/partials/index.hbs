@@ -20,8 +20,13 @@
     </header>
 
     <main>
+        <div class="alert alert-success alert-dismissible alert-warning fade show">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <h4 class="alert-heading">Informacion!</h4>
+            <p class="mb-0">{{ message }}</p>
+        </div>
         <section>
-            {{> menu}}
+                {{> menu }}
         </section>
         <section>
             <article></article>
