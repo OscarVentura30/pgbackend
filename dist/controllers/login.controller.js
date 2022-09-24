@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logoutProfile = exports.loginIn = void 0;
+exports.logoutProfile = exports.loginView = exports.loginIn = exports.indexView = exports.homeView = void 0;
 
 var _mssql = require("mssql");
 
@@ -128,3 +128,24 @@ var logoutProfile = function logoutProfile(req, res) {
 };
 
 exports.logoutProfile = logoutProfile;
+
+var homeView = function homeView(req, res) {
+  return res.render('home', {
+    user: 'oscar',
+    titulo: 'inicio'
+  });
+};
+
+exports.homeView = homeView;
+
+var loginView = function loginView(req, res) {
+  return res.render('login');
+};
+
+exports.loginView = loginView;
+
+var indexView = function indexView(req, res) {
+  return res.render('index');
+};
+
+exports.indexView = indexView;

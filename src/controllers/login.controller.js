@@ -72,7 +72,7 @@ export const homeView = (req, res) => {
 
     return res.render ('home', {
         user: 'oscar',
-        titulo: 'inicio',
+        titulo: 'Menú principal',
     });
 
 };
@@ -84,5 +84,8 @@ export const loginView = (req , res) => {
 };
 
 export const indexView = (req, res) => {
-    return res.render ('index');
+    return res.render ('index', {
+        titulo: 'Menu Principal',
+        template: 'menu'
+    });
 }

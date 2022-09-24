@@ -11,8 +11,16 @@ var _config = _interopRequireDefault(require("./config"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var app = (0, _express["default"])(); //ajustes
+var app = (0, _express["default"])(); //HBS
 
+var hbs = require('hbs');
+
+hbs.registerPartials(__dirname + '/views/partials', function (err) {}); // archivos estaticos
+
+app.use(_express["default"]["static"]('public')); //ajustes
+
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views/partials');
 app.set('port', _config["default"].port); //middlewares
 
 app.use(_express["default"].json());

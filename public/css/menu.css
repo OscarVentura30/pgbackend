@@ -1,12 +1,13 @@
 *{
     margin: 0;
     padding: 0;
+    text-decoration: none !important;
 
 }
 
 img{
-    width: 5vw;
-    height: 5vw;
+    width: 7vw;
+    height: 7vw;
 }
 
 .menubody{
@@ -15,6 +16,7 @@ img{
     align-items: center;
     min-height: 100vh;
     background: white;
+    margin-left: -5vw;
     
 }
 
@@ -25,6 +27,7 @@ img{
     align-items:  center;
     flex-direction: column;
     flex-wrap: wrap;
+    
 }
 
 .container .hexagonArea{
@@ -32,13 +35,13 @@ img{
 }
 
 .container .hexagonArea.last{
-    transform: translateY(-45px);
+    transform: translateY(-4vw);
 
 }
 
 .container .hexagonArea .hexagon{
     position:  relative;
-    width: 200px;
+    width: 250px;
     height: 250px;
     margin:  0 10px;
     /*
@@ -51,6 +54,9 @@ img{
     flex-direction: column;
     cursor: pointer;
     transition: .5s;
+    margin-top: 1vw;
+    margin-left: 3vw;
+    margin-right: 3vw;
 }
 
 .container .hexagonArea .hexagon h3{
@@ -59,11 +65,12 @@ img{
     font-size: 17px;
     letter-spacing:1px;
     color: white;
+    
 }
 
 .container .hexagonArea .hexagon:hover{
     background: orange;
-    transform: scale(0.8);
+    transform: scale(1.1);
 
 }
 
