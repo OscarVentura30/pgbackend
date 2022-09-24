@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 
 export const verifyToken = async (req, res, next) => {
 
-    const tokenUser = req.headers['x-access-token'];
+    const {cookies} = req ;
+
+    const tokenUser = cookies.xtoken;
+
+    console.log(tokenUser);
 
     if (!tokenUser) {
 
@@ -26,9 +30,9 @@ export const verifyToken = async (req, res, next) => {
         } 
         else 
         {
-            req.token = decoded;
-            console.log(decoded);
-
+            
+            const dataToken = jwt.decode(tokenUser)
+            console.log(dataToken);
             next();
         }
     });

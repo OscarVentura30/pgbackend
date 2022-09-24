@@ -3,10 +3,21 @@ import {getConnection, sql, queries} from '../database';
 import {encrypt,compare} from '../helpers/handleBcrypt';
 import {config} from 'dotenv';
 import { token } from 'morgan';
+import {serialize} from 'cookie';
 
 const jwt = require('jsonwebtoken'); 
 
 export const loginIn = async (req, res) => {
+
+    const {cookies} = req;
+
+    if ('xtoken' in cookies) {
+
+        return res.render('index', {
+            message: 'Existe sesion Actual'
+        })
+        
+    }
 
     const {userName, password} =  req.body;
 
@@ -43,8 +54,30 @@ export const loginIn = async (req, res) => {
             else{
 
                 const ttoken = jwt.sign({id: userName }, process.env.TEXTSECRET,{ expiresIn: 60*60*24});
-                console.log(ttoken);
-                res.json({auth: true, ttoken})
+
+                
+                /*
+                const serialized =  serialize('x-access-token', ttoken , {
+                    httpOnly: true,
+                    sameSite: 'strict',
+                    
+                    maxAge:60*60*24 ,   
+                    path: '/login'
+                    
+                });
+
+                console.log(serialized);
+
+                res.setHeader('Set-Cookie', serialized );
+                */
+
+                res.cookie('xtoken', ttoken);
+
+                /*
+
+                res.json({auth: true, ttoken});*/
+
+                res.redirect ('/index');
             }
             
 
@@ -62,9 +95,11 @@ export const logoutProfile = (req, res) => {
 
     const user = req.headers['x-access-token'];
 
-    console.log(user);
+    res.clearCookie('xtoken');
 
-    return res.json({auth: false, user});
+    return res.render('home' ,{
+        message: 'Cerrar sesion ok'
+    });
 
 };
 
@@ -78,6 +113,16 @@ export const homeView = (req, res) => {
 };
 
 export const loginView = (req , res) => {
+
+    const {cookies} = req;
+
+    if ('xtoken' in cookies) {
+
+        return res.render('index', {
+            message: 'Existe sesion Actual'
+        })
+        
+    }
 
     return res.render ('login');
 

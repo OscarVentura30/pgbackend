@@ -8,13 +8,13 @@ const router = Router();
 
 router.post('/api/login', loginIn);
 
-router.get('/api/logout',verifyToken, logoutProfile);
+router.get('/logout',verifyToken, logoutProfile);
 
 router.get('/',homeView);
 
 router.get('/login', loginView );
 
-router.get('/index', indexView )
+router.get('/index',verifyToken, indexView )
 
 export default router;
 
