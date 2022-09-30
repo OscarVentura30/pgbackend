@@ -15,8 +15,9 @@ img{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: white;
+    background: #ffffff;
     margin-left: -5vw;
+    margin-top: 3vw;
     
 }
 
@@ -27,6 +28,7 @@ img{
     align-items:  center;
     flex-direction: column;
     flex-wrap: wrap;
+    margin-top: -3vw;
     
 }
 
@@ -45,8 +47,10 @@ img{
     height: 250px;
     margin:  0 10px;
     /*
-    clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);*/
-    clip-path: circle(45%);
+    clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
+    clip-path: circle(45%) ;*/
+    clip-path: circle(50% at 50% 50%);
+    
     background: mediumslateblue;
     display: flex;
     justify-content: center;
@@ -57,6 +61,7 @@ img{
     margin-top: 1vw;
     margin-left: 3vw;
     margin-right: 3vw;
+    
 }
 
 .container .hexagonArea .hexagon h3{

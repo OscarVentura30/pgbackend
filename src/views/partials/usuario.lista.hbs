@@ -1,0 +1,46 @@
+
+<script type="text/javascript">
+
+  const url = ('/api/usuarios');
+
+  fetch(url)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => console.log(err))
+
+
+</script>
+
+<h3>Usuarios Existentes</h3>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">No.</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col" >Rol</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">1</th>
+      <td>oscar.ventura</td>
+      <td>oscar</td>
+      <td>ventura</td>
+      <td>Admin</td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-warning">Editar</button>
+            <button type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+      </td>
+    </tr>
+
+  </tbody>
+</table> 

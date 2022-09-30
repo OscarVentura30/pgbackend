@@ -14,7 +14,7 @@ router.get('/',homeView);
 
 router.get('/login', loginView );
 
-router.get('/index',verifyToken, indexView )
+router.get('/index',verifyToken, indexView );
 
 export default router;
 

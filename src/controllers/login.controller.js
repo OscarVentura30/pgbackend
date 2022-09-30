@@ -1,6 +1,7 @@
 import { pool } from 'mssql';
 import {getConnection, sql, queries} from '../database';
 import {encrypt,compare} from '../helpers/handleBcrypt';
+import {idUserToken} from '../helpers/tokenUser';
 import {config} from 'dotenv';
 import { token } from 'morgan';
 import {serialize} from 'cookie';
@@ -118,8 +119,15 @@ export const loginView = (req , res) => {
 
     if ('xtoken' in cookies) {
 
+        const tokenUser = cookies.xtoken;
+
+        const user = idUserToken(tokenUser);
+
+
         return res.render('index', {
-            message: 'Existe sesion Actual'
+            titulo: 'Menu Principal',
+            message: 'Existe sesion Actual',
+            usuario: user
         })
         
     }
@@ -129,8 +137,16 @@ export const loginView = (req , res) => {
 };
 
 export const indexView = (req, res) => {
+
+    const {cookies} = req ;
+
+    const tokenUser = cookies.xtoken;
+
+    const user = idUserToken(tokenUser);
+    
     return res.render ('index', {
         titulo: 'Menu Principal',
-        template: 'menu'
+        template: 'menu',
+        usuario: user
     });
 }

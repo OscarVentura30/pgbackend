@@ -12,7 +12,7 @@ export const getUsuarios =  async (req, res) => {
         const result = await pool
                             .request()
                             .query(queries.getAllusers);
-        console.log(result);
+        
 
         res.json(result.recordset);
  
@@ -212,4 +212,13 @@ export const updateUserById = async (req, res ) => {
 
 
 };
+
+
+export const userView = (req, res) => {
+
+    res.render('usuarios.index.hbs', {
+        message: 'Pagina de usuarios',
+    });
+
+}
 
