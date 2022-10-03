@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {getUsuarios,newUsuario,getUserById,deleteUserById,getCountUsers,updateUserById,userView } from '../controllers/user.controller';
+import {getUsuarios,newUsuario,getUserById,deleteUserById,getCountUsers,updateUserById,userView,userNewView } from '../controllers/user.controller';
 import {verifyToken} from '../helpers/verifyToken';
 
 const router = Router();
@@ -18,6 +18,6 @@ router.put('/api/usuarios/:id' ,verifyToken, updateUserById);
 
 router.get('/usuarios', verifyToken ,userView);
 
- 
+router.get('/user-new', userNewView);
 
 export default router; 

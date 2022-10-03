@@ -1,46 +1,57 @@
-
-<script type="text/javascript">
-
-  const url = ('/api/usuarios');
-
-  fetch(url)
-  .then(res => res.json())
-  .then(data => {
-    console.log(data)
-  })
-  .catch(err => console.log(err))
-
-
-</script>
-
 <h3>Usuarios Existentes</h3>
 
-<table class="table table-hover">
+<table id="tablaUsuarios" class="table table-hover" style="width:50vw ; height: auto;"  >
   <thead>
     <tr class="table-dark">
-      <th scope="col">No.</th>
-      <th scope="col">Usuario</th>
+      <th scope="col">Id</th>
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
+      <th scope="col">Email</th>
+      <th scope="col">salario</th>
       <th scope="col" >Rol</th>
-      <th scope="col">Opciones</th>
+      <th scope="col">UserName</th>
     </tr>
   </thead>
   <tbody>
 
-    <tr>
-      <th scope="row">1</th>
-      <td>oscar.ventura</td>
-      <td>oscar</td>
-      <td>ventura</td>
-      <td>Admin</td>
-      <td>
-        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btn btn-warning">Editar</button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
-        </div>
-      </td>
-    </tr>
-
   </tbody>
 </table> 
+
+
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>     
+
+<script type="text/javascript">
+
+  $(document).ready(function() {   
+         var url = 'http://localhost:4000/api/usuarios';
+
+          $('#tablaUsuarios').DataTable({
+
+            "ajax":{
+                  "url": url,
+                  "dataSrc":""
+              },
+              "columns":[
+                  {"data":"id"},
+                  {"data":"nombre"},
+                  {"data":"apellido"},
+                  {"data":"email"},
+                  
+                  {"data":"salario"},
+                  {"data":"rol"},
+                  {"data":"userName"},
+              ],
+              /*
+              "columnDefs":[{
+                  "targets":[2],
+                  render(v){
+                      return Number(v).toFixed(2)
+                  }
+              }]*/            
+              
+          });
+    });
+  
+</script>

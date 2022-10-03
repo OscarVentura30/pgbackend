@@ -7,7 +7,7 @@ import { validarNombre , validarEmail, validarPassword, validarNumero,validarUse
 export const getUsuarios =  async (req, res) => { 
 
     try {
-        const pool = await getConnection();
+        const pool = await getConnection(); 
 
         const result = await pool
                             .request()
@@ -71,7 +71,8 @@ export const newUsuario = async (req, res) => {
                 .input("userName", sql.VarChar , userName)
                 .query(queries.InsertNewUser);
 
-        res.json ('Crear nuevo Usuario ok ')
+        console.log('Crear nuevo Usuario ok ') ;
+        res.redirect ('/usuarios');
         
     } catch (error) {
         res.status(500);
@@ -220,5 +221,13 @@ export const userView = (req, res) => {
         message: 'Pagina de usuarios',
     });
 
-}
+};
+
+export const userNewView = (req, res) => {
+
+    res.render('usuario.nuevo.hbs',{
+        mensaje: "inicio"
+    })
+
+};
 

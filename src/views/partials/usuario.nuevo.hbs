@@ -1,65 +1,42 @@
-<form action="/api/usuarios" method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Usuario</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="icon" href="/icon/icon1.png">
 
-    <fieldset>
 
-        <legend>Usuario Nuevo</legend>
-                
-            <div class="form-group">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
 
-                <label class="form-label mt-4">Datos del Empleado </label>
+    </header>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Oscar" name="nombre">
-                    <label for="floatingInput">Nombre</label>
-                </div>
+    <main style="display: flex; height: 95vh ; width: 95vw; ">
+        <nav style="background-color: black;">
+            {{> usuario.menu }}
+        </nav>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Ventura" name="apellido">
-                    <label for="floatingInput">Apellido</label>
-                </div>
+        <section style="margin-left: 5vw; margin-top:2vw; height: 100%; width: 20%;">
 
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-                    <label for="floatingInput">Email address</label>
-                </div>
+            {{> usuario.form}}
 
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-                    <label for="floatingPassword">Password</label>
-                </div>
+        </section>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="usuario.apellido" name="userName">
-                    <label for="floatingInput">Usuario Alias</label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label mt-4">Salario</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Q</span>
-                        <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="salario">
-                        <span class="input-group-text">.00</span>
-                    </div>
+    </main>
 
-                    <legend class="mt-4">Rol del sistema</legend>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="rol" id="optionsRadios1" value="1" checked="1">
-                            <label class="form-check-label" for="optionsRadios1">
-                            Admin
-                            </label>
-                        </div>
+    <footer>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="rol" id="optionsRadios2" value="2">
-                        <label class="form-check-label" for="optionsRadios2">
-                            Vendedor
-                        </label>
-                    </div>
+    </footer>
+    
+</body>
+</html>
 
-                </div>
-            </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-
-    </fieldset>
-</form>
