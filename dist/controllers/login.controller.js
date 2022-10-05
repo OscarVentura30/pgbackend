@@ -13,6 +13,8 @@ var _database = require("../database");
 
 var _handleBcrypt = require("../helpers/handleBcrypt");
 
+var _tokenUser = require("../helpers/tokenUser");
+
 var _dotenv = require("dotenv");
 
 var _morgan = require("morgan");
@@ -168,8 +170,12 @@ var loginView = function loginView(req, res) {
   var cookies = req.cookies;
 
   if ('xtoken' in cookies) {
+    var tokenUser = cookies.xtoken;
+    var user = (0, _tokenUser.idUserToken)(tokenUser);
     return res.render('index', {
-      message: 'Existe sesion Actual'
+      titulo: 'Menu Principal',
+      message: 'Existe sesion Actual',
+      usuario: user
     });
   }
 
@@ -179,9 +185,13 @@ var loginView = function loginView(req, res) {
 exports.loginView = loginView;
 
 var indexView = function indexView(req, res) {
+  var cookies = req.cookies;
+  var tokenUser = cookies.xtoken;
+  var user = (0, _tokenUser.idUserToken)(tokenUser);
   return res.render('index', {
     titulo: 'Menu Principal',
-    template: 'menu'
+    template: 'menu',
+    usuario: user
   });
 };
 

@@ -18,5 +18,7 @@ router.get('/api/usuarioscount', _verifyToken.verifyToken, _user.getCountUsers);
 router.post('/api/usuarios', _verifyToken.verifyToken, _user.newUsuario);
 router["delete"]('/api/usuarios/:id', _verifyToken.verifyToken, _user.deleteUserById);
 router.put('/api/usuarios/:id', _verifyToken.verifyToken, _user.updateUserById);
+router.get('/usuarios', _verifyToken.verifyToken, _user.userView);
+router.get('/user-new', _user.userNewView);
 var _default = router;
 exports["default"] = _default;

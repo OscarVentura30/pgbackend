@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUserById = exports.newUsuario = exports.getUsuarios = exports.getUserById = exports.getCountUsers = exports.deleteUserById = void 0;
+exports.userView = exports.userNewView = exports.updateUserById = exports.newUsuario = exports.getUsuarios = exports.getUserById = exports.getCountUsers = exports.deleteUserById = void 0;
 
 var _morgan = require("morgan");
 
@@ -39,23 +39,22 @@ var getUsuarios = /*#__PURE__*/function () {
 
           case 6:
             result = _context.sent;
-            console.log(result);
             res.json(result.recordset);
-            _context.next = 15;
+            _context.next = 14;
             break;
 
-          case 11:
-            _context.prev = 11;
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context["catch"](0);
             res.status(500);
             res.send(_context.t0.message);
 
-          case 15:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 11]]);
+    }, _callee, null, [[0, 10]]);
   }));
 
   return function getUsuarios(_x, _x2) {
@@ -147,22 +146,23 @@ var newUsuario = /*#__PURE__*/function () {
             return pool.request().input("nombre", _database.sql.VarChar, nombre).input("apellido", _database.sql.VarChar, apellido).input("email", _database.sql.VarChar, email).input("password", _database.sql.VarChar, passwordHash).input("salario", _database.sql.Numeric, salario).input("rol", _database.sql.Int, rol).input("userName", _database.sql.VarChar, userName).query(_database.queries.InsertNewUser);
 
           case 24:
-            res.json('Crear nuevo Usuario ok ');
-            _context2.next = 31;
+            console.log('Crear nuevo Usuario ok ');
+            res.redirect('/usuarios');
+            _context2.next = 32;
             break;
 
-          case 27:
-            _context2.prev = 27;
+          case 28:
+            _context2.prev = 28;
             _context2.t1 = _context2["catch"](18);
             res.status(500);
             res.send(_context2.t1.message + 'El rol no existe ');
 
-          case 31:
+          case 32:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[18, 27]]);
+    }, _callee2, null, [[18, 28]]);
   }));
 
   return function newUsuario(_x3, _x4) {
@@ -405,3 +405,19 @@ var updateUserById = /*#__PURE__*/function () {
 }();
 
 exports.updateUserById = updateUserById;
+
+var userView = function userView(req, res) {
+  res.render('usuarios.index.hbs', {
+    message: 'Pagina de usuarios'
+  });
+};
+
+exports.userView = userView;
+
+var userNewView = function userNewView(req, res) {
+  res.render('usuario.nuevo.hbs', {
+    mensaje: "inicio"
+  });
+};
+
+exports.userNewView = userNewView;

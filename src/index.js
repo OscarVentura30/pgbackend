@@ -1,4 +1,5 @@
 import app from './app';
+import Swal from 'sweetalert2'
 
 /* rutas */
 
@@ -12,6 +13,7 @@ import {getConnection} from './database/conection';*/
 
 app.use(loginRutas);
 app.use(usuarioRutas);
+app.use(Swal);
 
 
 async function init() {

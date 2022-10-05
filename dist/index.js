@@ -2,6 +2,8 @@
 
 var _app = _interopRequireDefault(require("./app"));
 
+var _sweetalert = _interopRequireDefault(require("sweetalert2"));
+
 var _user = _interopRequireDefault(require("./routes/user.routes"));
 
 var _login = _interopRequireDefault(require("./routes/login.router"));
@@ -21,6 +23,8 @@ import {getConnection} from './database/conection';*/
 _app["default"].use(_login["default"]);
 
 _app["default"].use(_user["default"]);
+
+_app["default"].use(_sweetalert["default"]);
 
 function init() {
   return _init.apply(this, arguments);
