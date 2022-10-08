@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="icon" href="/icon/icon1.png">
+
+</head>
+<body>
+    <header>
+        {{> nav}}
+    </header>
+    <main style="display: flex; height: 95vh ; width: 95vw; ">
+        <nav style="background-color: black;" >
+            {{> usuario.menu }}
+        </nav>
+        <div class="container-xxl">
+
+            
+
+               
+
+                    <legend>Editar Usuario </legend>
+                            
+                        <div class="form-group">
+
+                            <label class="form-label mt-4">Datos del Empleado </label>
+
+                            <input type="hidden" name="id" value="{{ id }}" id="codigo">
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="name" placeholder="Oscar" name="nombre" value="{{ nombre }}">
+                                <label for="floatingInput">Nombre</label>
+                            </div>  
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="lastName" placeholder="Ventura" name="apellido" value="{{ apellido }}">
+                                <label for="floatingInput">Apellido</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" value="{{ email }}">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password">
+                                <label for="floatingPassword">Password</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="userName" placeholder="usuario.apellido" name="userName" value="{{ usuario }}">
+                                <label for="floatingInput">Usuario Alias</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label mt-4">Salario</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q</span>
+                                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="salario" name="salario" value="{{ salario }}">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+
+                                <legend class="mt-4">Rol del sistema</legend>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rol" id="optionsRadios1" value="1">
+                                        <label class="form-check-label" for="optionsRadios1">
+                                        Admin
+                                        </label>
+                                    </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rol" id="optionsRadios2" value="2" >
+                                    <label class="form-check-label" for="optionsRadios2">
+                                        Vendedor
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary" onclick="update()">Guardar Cambios</button>
+
+                
+            
+            
+        </div>
+    </main>
+
+    <script src="/js/sweetalert2@11.js"></script>
+
+    <script>
+
+        var role = {{ rol }};
+        const idUser = {{ id }};
+        
+        if(role == 1){
+            document.getElementById('optionsRadios1').checked = 1 ;
+        }
+        else{
+            document.getElementById('optionsRadios2').checked = 1 ;
+        }
+
+        const url = ('/api/usuarios/' + idUser);
+
+        console.log(url);
+
+        function update(){
+            const newName = document.getElementById('name').value;
+            const newLast = document.getElementById('lastName').value;
+            const newEmail = document.getElementById('email').value;
+            const newPass = document.getElementById('password').value;
+            const newUser = document.getElementById('userName').value;
+            const newSal = document.getElementById('salario').value;
+
+            if(document.getElementById('optionsRadios1').checked == 1){
+                role = 1;
+            }
+            else{
+                role = 2;
+            }
+
+            const data = {
+                nombre: newName,
+                apellido: newLast,
+                email: newEmail,
+                password: newPass,
+                salario: newSal,
+                rol: role,
+                userName: newUser
+            }
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+                })
+                .then((res) => res.json())
+                .then((dat) => {
+                    console.log('exito : ', dat);
+
+                    Swal.fire(
+                        'Actualizado !',
+                        'Cambios Guardados',
+                        'success'
+                    )
+
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'Error',
+                        title: 'Oops...',
+                        text: 'No es posible actualizar ',
+                    })
+                });
+        }
+
+        
+        
+    </script>
+
+</body>
+</html>

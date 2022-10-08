@@ -1,3 +1,4 @@
+import { data } from 'jquery';
 import { token } from 'morgan';
 import {getConnection, sql, queries} from '../database';
 import {encrypt,compare} from '../helpers/handleBcrypt';
@@ -99,7 +100,19 @@ export const getUserById = async (req, res) => {
             res.json ('No se encuentra Usuario ')
         }
 
-        res.send(result.recordset[0]);
+        /*res.send(result.recordset[0]);*/
+        const datos = result.recordset[0];
+        console.log(datos.userName);
+        res.render('usuario.editar.hbs', {
+            id: datos.id,
+            nombre: datos.nombre,
+            apellido: datos.apellido,
+            email: datos.email,
+            salario: datos.salario,
+            rol: datos.rol,
+            usuario: datos.userName,
+
+        } );
         
     } catch (error) {
 

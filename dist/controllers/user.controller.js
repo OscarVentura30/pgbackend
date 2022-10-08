@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userView = exports.userNewView = exports.updateUserById = exports.newUsuario = exports.getUsuarios = exports.getUserById = exports.getCountUsers = exports.deleteUserById = void 0;
 
+var _jquery = require("jquery");
+
 var _morgan = require("morgan");
 
 var _database = require("../database");
@@ -174,7 +176,7 @@ exports.newUsuario = newUsuario;
 
 var getUserById = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var id, pool, result;
+    var id, pool, result, datos;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -195,23 +197,35 @@ var getUserById = /*#__PURE__*/function () {
             if (result.recordset[0] == null) {
               res.json('No se encuentra Usuario ');
             }
+            /*res.send(result.recordset[0]);*/
 
-            res.send(result.recordset[0]);
-            _context3.next = 16;
+
+            datos = result.recordset[0];
+            console.log(datos.userName);
+            res.render('usuario.editar.hbs', {
+              id: datos.id,
+              nombre: datos.nombre,
+              apellido: datos.apellido,
+              email: datos.email,
+              salario: datos.salario,
+              rol: datos.rol,
+              usuario: datos.userName
+            });
+            _context3.next = 18;
             break;
 
-          case 12:
-            _context3.prev = 12;
+          case 14:
+            _context3.prev = 14;
             _context3.t0 = _context3["catch"](1);
             res.status(500);
             res.send(_context3.t0.message + ' / no se econtro usuario ' + id);
 
-          case 16:
+          case 18:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[1, 12]]);
+    }, _callee3, null, [[1, 14]]);
   }));
 
   return function getUserById(_x5, _x6) {
