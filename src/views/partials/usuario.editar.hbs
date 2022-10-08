@@ -34,12 +34,12 @@
                             <input type="hidden" name="id" value="{{ id }}" id="codigo">
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="name" placeholder="Oscar" name="nombre" value="{{ nombre }}">
+                                <input type="text" class="form-control" id="name" placeholder="Oscar" name="nombre" value="{{ nombre }}" required>
                                 <label for="floatingInput">Nombre</label>
                             </div>  
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="lastName" placeholder="Ventura" name="apellido" value="{{ apellido }}">
+                                <input type="text" class="form-control" id="lastName" placeholder="Ventura" name="apellido" value="{{ apellido }}" required>
                                 <label for="floatingInput">Apellido</label>
                             </div>
 
@@ -49,12 +49,12 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password">
+                                <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password" required >
                                 <label for="floatingPassword">Password</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="userName" placeholder="usuario.apellido" name="userName" value="{{ usuario }}">
+                                <input type="text" class="form-control" id="userName" placeholder="usuario.apellido" name="userName" value="{{ usuario }}" required>
                                 <label for="floatingInput">Usuario Alias</label>
                             </div>
                             
@@ -85,6 +85,8 @@
                         </div>
                     <br>
                     <button type="submit" class="btn btn-primary" onclick="update()">Guardar Cambios</button>
+                    
+                    <a href="/usuarios"> <button type="button" class="btn btn-danger">Cancelar</button> </button></a>
 
                 
             
