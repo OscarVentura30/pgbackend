@@ -148,7 +148,6 @@ var loginIn = /*#__PURE__*/function () {
 exports.loginIn = loginIn;
 
 var logoutProfile = function logoutProfile(req, res) {
-  var user = req.headers['x-access-token'];
   res.clearCookie('xtoken');
   return res.render('home', {
     message: 'Cerrar sesion ok'
@@ -175,7 +174,7 @@ var loginView = function loginView(req, res) {
     return res.render('index', {
       titulo: 'Menu Principal',
       message: 'Existe sesion Actual',
-      usuario: user
+      sesionUser: user
     });
   }
 
@@ -191,7 +190,7 @@ var indexView = function indexView(req, res) {
   return res.render('index', {
     titulo: 'Menu Principal',
     template: 'menu',
-    usuario: user
+    sesionUser: user
   });
 };
 

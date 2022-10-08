@@ -2,11 +2,11 @@
 
 var _app = _interopRequireDefault(require("./app"));
 
-var _sweetalert = _interopRequireDefault(require("sweetalert2"));
-
 var _user = _interopRequireDefault(require("./routes/user.routes"));
 
 var _login = _interopRequireDefault(require("./routes/login.router"));
+
+var _cliente = _interopRequireDefault(require("./routes/cliente.router"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -24,7 +24,7 @@ _app["default"].use(_login["default"]);
 
 _app["default"].use(_user["default"]);
 
-_app["default"].use(_sweetalert["default"]);
+_app["default"].use(_cliente["default"]);
 
 function init() {
   return _init.apply(this, arguments);

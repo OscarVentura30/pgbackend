@@ -21,6 +21,8 @@ export const verifyToken = async (req, res, next) => {
 
     const decoded = jwt.verify(tokenUser, process.env.TEXTSECRET, (error, auth) => {
         if (error) {
+            
+            res.clearCookie('xtoken');
 
             return res.status(403).json({
                 auth : false ,

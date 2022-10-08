@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nuevo cliente</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="icon" href="/icon/icon1.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+        }
+
+        #sectioncontenedor{
+            margin-left: 5vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 35%;
+        }
+
+
+    </style>
+
+    
+</head>
+<body>
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+    </header>
+
+    <main id="principal">
+        <nav id="menuLat">
+            {{> cliente.menu }}
+        </nav>
+        <section id="sectioncontenedor">
+
+            <form action="/api/cliente-nuevo" method="post">
+
+                <fieldset>
+
+                    <legend>Cliente Nuevo</legend>
+
+                    <label class="form-label mt-4">Datos del Cliente </label>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nombre" placeholder="Ejemplo: Juan Canil" name="nombre" required>
+                        <label for="floatingInput">Nombre</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Ejemplo: 8113346 - CF" name="nit" required>
+                        <label for="floatingInput">NIT</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Ejemplo: Chichicastenango" name="direccion">
+                        <label for="floatingInput">Direccion</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="Ejemplo: 47503345" name="telefono">
+                        <label for="floatingInput">Telefono</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="Ejemplo: Juancanil@gmail.com" name="email">
+                        <label for="floatingInput">Correo Electronico</label>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="select-type-client" class="form-label mt-4">Selecctione Tipo de cliente</label>
+                        <select class="form-select" id="select-type-client" name="tipoClienteId">
+                            
+                        </select>
+                    </div>
+
+                    <div id="contendor-select">
+
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary"> Guardar</button>
+
+                     <a href="/clientes"> <button type="button" class="btn btn-danger">Cancelar</button> </button></a>
+
+                </fieldset>
+
+            </form>
+            
+
+        </section>
+
+    </main>
+
+    <script>
+
+        const url = '/api/get-type-client';
+
+
+        fetch(url)
+        .then((res)=> res.json() )
+        .then((datos)=>{
+
+            let select = document.getElementById("select-type-client");
+            for(x of datos) {
+
+                let option = document.createElement("option");
+                option.setAttribute("value", x.id );
+                let option1Text = document.createTextNode(x.alias);
+                option.appendChild(option1Text);
+                select.appendChild(option);
+
+            }
+
+        })
+        .catch((error) => { 
+            console.log('error al obtener datos, ', error)
+        })
+       
+    </script>
+
+
+</body>
+</html>

@@ -94,8 +94,6 @@ export const loginIn = async (req, res) => {
 
 export const logoutProfile = (req, res) => {
 
-    const user = req.headers['x-access-token'];
-
     res.clearCookie('xtoken');
 
     return res.render('home' ,{
@@ -127,7 +125,7 @@ export const loginView = (req , res) => {
         return res.render('index', {
             titulo: 'Menu Principal',
             message: 'Existe sesion Actual',
-            usuario: user
+            sesionUser: user
         })
         
     }
@@ -147,6 +145,6 @@ export const indexView = (req, res) => {
     return res.render ('index', {
         titulo: 'Menu Principal',
         template: 'menu',
-        usuario: user
+        sesionUser: user
     });
 }

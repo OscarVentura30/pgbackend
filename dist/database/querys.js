@@ -13,6 +13,11 @@ var queries = {
   updateUserById: 'update usuario_t set nombre = @nombre , apellido = @apellido , email = @email , password = @password ,salario = @salario, rol = @rol , userName = @userName where id = @id',
   loginUser: 'select * from usuario_t where userName = @userName',
   validateUser: 'select * from usuario_t where userName = @userName',
-  validateIdUser: 'select id from usuario_t where id = @id'
+  validateIdUser: 'select id from usuario_t where id = @id',
+  getAllClient: 'select * from cliente_t',
+  InsertClient: 'insert into cliente_t (nombre, nit, direccion, telefono, email, tipoClienteId) values(@nombre, @nit, @direccion, @telefono,@email, @tipoClienteId);',
+  getTypeClient: 'select id, alias from tipoCliente_t',
+  validateIdClient: 'select id from cliente_t where id = @id',
+  deleteClientById: 'delete from cliente_t where id = @id '
 };
 exports.queries = queries;

@@ -230,6 +230,8 @@ export const updateUserById = async (req, res ) => {
 
 export const userView = (req, res) => {
 
+    
+
     res.render('usuarios.index.hbs', {
         message: 'Pagina de usuarios',
     });

@@ -206,29 +206,37 @@ var validarIdUsuario = /*#__PURE__*/function () {
           case 8:
             result = _context2.sent;
 
-            if (!(result.recordset[0].id == id)) {
+            if (!(result.recordset[0] == null)) {
               _context2.next = 11;
+              break;
+            }
+
+            return _context2.abrupt("return", false);
+
+          case 11:
+            if (!(result.recordset[0].id == id)) {
+              _context2.next = 13;
               break;
             }
 
             return _context2.abrupt("return", true);
 
-          case 11:
+          case 13:
             return _context2.abrupt("return", false);
 
-          case 14:
-            _context2.prev = 14;
+          case 16:
+            _context2.prev = 16;
             _context2.t0 = _context2["catch"](2);
             console.log('error interno 500, no es posible validar id');
             console.log(_context2.t0);
             return _context2.abrupt("return", false);
 
-          case 19:
+          case 21:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[2, 14]]);
+    }, _callee2, null, [[2, 16]]);
   }));
 
   return function validarIdUsuario(_x2) {

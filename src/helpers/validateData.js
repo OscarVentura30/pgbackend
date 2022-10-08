@@ -177,6 +177,12 @@ export const validarIdUsuario = async (id) => {
                             .input("id", sql.Int , id)
                             .query(queries.validateIdUser);
 
+        if (result.recordset[0] == null) {
+
+            return false;
+            
+        }
+
         if (result.recordset[0].id == id) {
 
             return true

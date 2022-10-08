@@ -1,7 +1,7 @@
 
 <h3>Usuarios Existentes</h3>
 
-<table id="tablaUsuarios" class="table table-hover" style="width:50vw ; height: auto;"  >
+<table id="tablaUsuarios" class="table table-hover" style="width:55vw ; height: auto;"  >
   <thead>
     <tr class="table-dark">
       <th scope="col">Id</th>
@@ -92,6 +92,7 @@
           'El usuario ha sido eliminado.',
           'success'
           )
+          location.reload();
           res.json()
         })
         .catch(err => {
@@ -101,6 +102,7 @@
             text: 'Error al eliminar recurso!',
             footer: '<a href="">Why do I have this issue?</a>'
           })
+          location.reload();
           console.log(err)
         });
       }
