@@ -82,7 +82,7 @@
             {"data" : "email"},
             {"data" : "tipoClienteId"},
             {"data" : function(data){
-            return '<a href="#"> <button type="button" class="btn btn-warning">Ediar</button></a><button type="button" class="btn btn-danger" onclick="eliminar('+data.id+')">Eliminar</button>'}
+            return '<a href="/api/get-cliente/'+data.id+'"> <button type="button" class="btn btn-warning">Ediar</button></a><button type="button" class="btn btn-danger" onclick="eliminar('+data.id+')">Eliminar</button>'}
             }
             ],
 

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editar cliente</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="icon" href="/icon/icon1.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+        }
+
+        #sectioncontenedor{
+            margin-left: 5vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 35%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> cliente.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <div class="container-xxl">
+
+                <div class="form-group">
+
+                    <label class="form-label mt-8">Editar Cliente </label>
+
+                    <input type="hidden" name="id" value="{{ id }}" id="codigo">
+
+                    <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nombre" placeholder="Oscar" name="nombre" value="{{ nombre }}" required>
+                                    <label for="floatingInput">Nombre</label>
+                    </div>  
+
+                    <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nit" placeholder="Ejemplo: 8113346 - CF" name="nit" value="{{ nit }}" required>
+                            <label for="floatingInput">NIT</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="direccion" placeholder="Ejemplo: Chichicastenango" name="direccion" value="{{ direccion }}">
+                            <label for="floatingInput">Direccion</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="telefono" placeholder="Ejemplo: 47503345" name="telefono" value="{{ telefono }}">
+                            <label for="floatingInput">Telefono</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="Ejemplo: Juancanil@gmail.com" name="email" value="{{ email }}">
+                            <label for="floatingInput">Correo Electronico</label>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="select-type-client" class="form-label mt-4">Selecctione Tipo de cliente</label>
+                            <select class="form-select" id="select-type-client" name="tipoClienteId">
+                                
+                            </select>
+                    </div>
+                    
+                    <br>
+
+                    <button type="submit" class="btn btn-primary" onclick="actualizar()"> Guardar</button>
+
+                    <a href="/clientes"> <button type="button" class="btn btn-danger">Cancelar</button> </button></a> 
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+     <script src="/js/sweetalert2@11.js"></script>
+
+    <script>
+
+        getTypeClient();
+
+        const idUser = {{ id }};
+
+        var tipoClienteId1 = {{ tipoClienteId }} ;
+
+        const url2 = ('/api/update-client/'+ idUser);
+
+        function actualizar(){
+            
+            const newName = document.getElementById('nombre').value;
+            const newNit = document.getElementById('nit').value;
+            const newAdress = document.getElementById('direccion').value;
+            const newPhone = document.getElementById('telefono').value;
+            const newEmail = document.getElementById('email').value;
+            const newTypeCl = document.getElementById('select-type-client').value;
+
+            const data = {
+                nombre: newName,
+                nit: newNit,
+                direccion: newAdress,
+                telefono: newPhone,
+                email: newEmail,
+                tipoClienteId: newTypeCl
+
+            }
+
+             fetch(url2, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+                })
+                .then((res) => res.json())
+                .then((dat) => {
+                    console.log('exito : ', dat);
+
+                    Swal.fire(
+                        'Actualizado !',
+                        'Cambios Guardados',
+                        'success'
+                    )
+
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'Error',
+                        title: 'Oops...',
+                        text: 'No es posible actualizar ',
+                    })
+                });
+
+            
+        }
+
+
+        async function getTypeClient(){
+            const url = '/api/get-type-client';
+            await fetch(url)
+            .then((res)=> res.json() )
+            .then((datos)=>{
+
+                let select = document.getElementById("select-type-client");
+                for(x of datos) {
+
+                    let option = document.createElement("option");
+                    option.setAttribute("value", x.id );
+                    let option1Text = document.createTextNode(x.alias);
+                    option.appendChild(option1Text);
+                    select.appendChild(option);
+
+                }
+
+                document.getElementById('select-type-client').value = tipoClienteId1;
+
+            })
+            .catch((error) => { 
+                console.log('error al obtener datos, ', error)
+            })
+        }
+
+    </script>
+
+    
+</body>
+</html>

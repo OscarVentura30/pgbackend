@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ver tipo de clientes </title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="icon" href="/icon/icon1.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+        }
+
+        #sectioncontenedor{
+            margin-left: 5vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 35%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> cliente.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <div class="container-xxl">
+                
+                <h3>clasificación de clientes</h3>
+                
+                <table id="tablaClientesTipo" class="table table-hover" style="width:50vw ; height: auto; border: 5px;"  >
+                    <thead>
+                        <tr class="table-dark">
+                        <th scope="col">Id</th>
+                        <th scope="col">Etiqueta</th>
+                        <th scope="col">Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+<footer>
+
+</footer>
+
+<script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
+    
+<script src="/js/sweetalert2@11.js"></script>
+
+<script>
+
+    $(document).ready(() => {
+        var url = '/api/get-type-client';
+
+        $('#tablaClientesTipo').DataTable ({
+
+            "language": {
+                "url": "/DataTables/es-MX.json"
+            },
+
+            "ajax":{
+                    "url": url,
+                    "dataSrc":""
+            },
+            "columns": [
+            {"data" : "id"},
+            {"data" : "alias"},
+            {"data" : "descripcion"},
+            ],
+
+        });
+
+    });
+        
+</script>
+
+    
+</body>
+</html>

@@ -16,8 +16,10 @@ var queries = {
   validateIdUser: 'select id from usuario_t where id = @id',
   getAllClient: 'select * from cliente_t',
   InsertClient: 'insert into cliente_t (nombre, nit, direccion, telefono, email, tipoClienteId) values(@nombre, @nit, @direccion, @telefono,@email, @tipoClienteId);',
-  getTypeClient: 'select id, alias from tipoCliente_t',
+  getTypeClient: 'select * from tipoCliente_t',
   validateIdClient: 'select id from cliente_t where id = @id',
-  deleteClientById: 'delete from cliente_t where id = @id '
+  deleteClientById: 'delete from cliente_t where id = @id ',
+  updateClientById: 'update cliente_t set nombre = @nombre, nit = @nit, direccion = @direccion, telefono = @telefono, email = @email, tipoClienteId = @tipoClienteId where id = @id',
+  getClientById: 'select * from cliente_t where id = @id'
 };
 exports.queries = queries;

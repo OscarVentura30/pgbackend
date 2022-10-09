@@ -3,6 +3,7 @@ import { token } from 'morgan';
 import {getConnection, sql, queries} from '../database';
 import {encrypt,compare} from '../helpers/handleBcrypt';
 import { validarNombre , validarEmail, validarPassword, validarNumero,validarUser, validarIdUsuario } from '../helpers/validateData';
+import {idUserToken} from '../helpers/tokenUser';
 
 
 export const getUsuarios =  async (req, res) => { 
@@ -102,7 +103,13 @@ export const getUserById = async (req, res) => {
 
         /*res.send(result.recordset[0]);*/
         const datos = result.recordset[0];
-        console.log(datos.userName);
+        /*console.log(datos.userName);*/
+        const {cookies} = req ;
+
+        const tokenUser = cookies.xtoken;
+
+        const user = idUserToken(tokenUser);
+
         res.render('usuario.editar.hbs', {
             id: datos.id,
             nombre: datos.nombre,
@@ -111,6 +118,7 @@ export const getUserById = async (req, res) => {
             salario: datos.salario,
             rol: datos.rol,
             usuario: datos.userName,
+            sesionUser: user
 
         } );
         
@@ -230,18 +238,30 @@ export const updateUserById = async (req, res ) => {
 
 export const userView = (req, res) => {
 
-    
+    const {cookies} = req ;
+
+    const tokenUser = cookies.xtoken;
+
+    const user = idUserToken(tokenUser);
 
     res.render('usuarios.index.hbs', {
         message: 'Pagina de usuarios',
+        sesionUser: user
     });
 
 };
 
 export const userNewView = (req, res) => {
 
+    const {cookies} = req ;
+
+    const tokenUser = cookies.xtoken;
+
+    const user = idUserToken(tokenUser);
+
     res.render('usuario.nuevo.hbs',{
-        mensaje: "inicio"
+        mensaje: "inicio",
+        sesionUser: user
     })
 
 };

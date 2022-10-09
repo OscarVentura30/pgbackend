@@ -18,7 +18,7 @@ export const validarNombre = (text)=> {
         return false
     }
 
-    if ( (text.split(" ").join("")).length <= 3) {
+    if ( (text.split(" ").join("")).length <= 2) {
 
         console.log('error: nombre o apellido invalido');
         return false
