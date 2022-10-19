@@ -8,6 +8,8 @@ var _login = _interopRequireDefault(require("./routes/login.router"));
 
 var _cliente = _interopRequireDefault(require("./routes/cliente.router"));
 
+var _inventario = _interopRequireDefault(require("./routes/inventario.router"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -25,6 +27,8 @@ _app["default"].use(_login["default"]);
 _app["default"].use(_user["default"]);
 
 _app["default"].use(_cliente["default"]);
+
+_app["default"].use(_inventario["default"]);
 
 function init() {
   return _init.apply(this, arguments);

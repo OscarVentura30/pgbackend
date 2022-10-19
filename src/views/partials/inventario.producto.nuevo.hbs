@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario productos</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/icon/favicon.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+            height: 110vh; 
+        }
+
+        #sectioncontenedor{
+            margin-left: 2vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 45%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> inventario.menu }}
+        </nav>
+ 
+        <section id="sectioncontenedor" >
+
+            <H3>Registrar Nuevo Producto</H3>
+            <p class="text-muted">Crear un producto en el sistema</p>
+            <hr>
+            <h5 style="text-align: center;">Datos del producto</h5>
+            <br>
+            <form onsubmit="return false">
+
+                <fieldset>
+
+                    <div style="display: flex; flex-direction: column; justify-content: space-around;">
+
+                        <div class="container" style="display: flex; flex-direction: row; justify-content: space-around;">
+
+                            <div class="form-group">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="input-codigoBarras" placeholder="">
+                                    <label for="floatingInput">Codigo barras</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="input-nombre" placeholder="">
+                                    <label for="floatingPassword">Nombre del producto</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="select1" class="form-label mt-4">Tipo de producto</label>
+                                <select class="form-select" id="select-type-product" name="tipo">
+                        
+                                </select>
+                            
+                            
+                                <label for="select1" class="form-label mt-4">Marca de producto</label>
+                                <select class="form-select" id="select-marcas-product" name="marca">
+                
+                                </select>
+                            
+                            
+                                <label for="select1" class="form-label mt-4">Presentacion de producto</label>
+                                <select class="form-select" id="select-present-product" name="presentacion">
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <hr>
+
+                        <h5 style="text-align: center;">Precio del producto</h5>
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">
+
+                            <div class="form-group">
+
+                                <label for="select1" class="form-label mt-4">Medida del producto</label>
+                                <select class="form-select" id="select-content-product" name="productoUnidades">
+                
+                                </select>
+                                
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label mt-4">Precio Venta</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q</span>
+                                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="precioVenta" value="0" id="input-precioVenta">
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <h5  style="text-align: center;" >Proveedor del producto</h5>
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">
+
+                            <div class="form-group">
+                            
+                                <label for="select1" class="form-label mt-4">Seleccione Proveedor</label>
+                                <select class="form-select" id="select-proveedor-product" name="productoProveedor">
+                
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label mt-4">Precio Compra</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q</span>
+                                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="precioCompra" value="0" id="input-precioCompra">
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                   
+
+                </fieldset>
+
+            </form>
+
+
+        </section>
+        <br><br>
+        <section id="sectioncontenedor" >
+            <h3>Accesos Rapidos:</h3>
+            <p class="text-muted">Agregar marcas, presentacion, proveedor, etc.</p>
+            <hr>
+            
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalMarca"> + Agregar Marca</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalTipo">+ Agregar Tipo </button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalMedida">+ Definir Medida</button> <br><br>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalPresentacion">+ Agregar Presentacion</button>
+                <button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#modalProveedor">+Agregar proveedor</button>
+    
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h3>Opciones de guardado</h3>
+            <p class="text-muted">Botones para Guardar</p>
+            <hr>
+            <div style="text-align: center;">
+
+                        <button type="button" class="btn btn-primary btn-lg"  onclick="agregar()" > Guardar</button>
+
+                        <a href="/producto"> <button type="button" class="btn btn-danger btn-lg ">Salir</button></a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+<script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
+<script src="/js/sweetalert2@11.js"></script>
+
+<script src="/js/inventario.nuevop.js"></script>
+
+<!-- Modal marca -->
+<div class="modal fade" id="modalMarca" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #593196;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-marca-descripcion" placeholder="" name="marca" required>
+                        <label for="floatingInput">Nombre de marca</label>
+                    </div>
+                    <p class="text-danger" id="alert-input-1"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="agregarMarca()">Agregar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Tipo -->
+<div class="modal fade" id="modalTipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #593196;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Clasificación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-tipo-descripcion" placeholder="" name="tipo" required>
+                        <label for="floatingInput">Nombre de Clasificación</label>
+                    </div>
+                    <p class="text-danger" id="alert-input-2"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="agregarTipo()">Agregar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Presentacion -->
+<div class="modal fade" id="modalPresentacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #593196;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Presentación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-presentacion-descripcion" placeholder="" name="presetacion" required>
+                        <label for="floatingInput">Nombre de Presentación</label>
+                    </div>
+                    <p class="text-danger" id="alert-input-3"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="agregarPresentacion()">Agregar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal nueva medida-->
+<div class="modal fade" id="modalMedida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #593196;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Medida</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-medida-descripcion" placeholder="" name="medida" required>
+                        <label for="floatingInput">Nombre de Medida</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="input-medida-valor" placeholder="" name="valor" required>
+                        <label for="floatingInput">Valor Unitario</label>
+                    </div>
+
+                    <p class="text-danger" id="alert-input-4"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="agregarMedida()">Agregar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal nuevo -->
+<div class="modal fade" id="modalProveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #593196;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Proveedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-proveedor-nombre" placeholder="" name="nombre" required>
+                        <label for="floatingInput">Nombre de Proveedor</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-proveedor-descripcion" placeholder="" name="descripcion" required>
+                        <label for="floatingInput">Descripcion</label>
+                    </div>
+                    <div class="form-group">
+
+                                <label for="select-type-proveedor" class="form-label mt-4">Tipo de proveedor</label>
+                                <select class="form-select" id="select-type-proveedor" name="tipoProveedorId">
+                        
+                                </select>
+                    </div>
+
+                    <p class="text-danger" id="alert-input-5"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="agregarProveedor()">Agregar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+    
+</body>
+</html>

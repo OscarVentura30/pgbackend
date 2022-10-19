@@ -245,6 +245,7 @@ export const userView = (req, res) => {
     const user = idUserToken(tokenUser);
 
     res.render('usuarios.index.hbs', {
+        titulo:'Usuarios',
         message: 'Pagina de usuarios',
         sesionUser: user
     });
@@ -260,6 +261,7 @@ export const userNewView = (req, res) => {
     const user = idUserToken(tokenUser);
 
     res.render('usuario.nuevo.hbs',{
+        titulo:'Usuarios',
         mensaje: "inicio",
         sesionUser: user
     })

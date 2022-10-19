@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario stock </title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/icon/favicon.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+        }
+
+        #sectioncontenedor{
+            margin-left: 2vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 45%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> inventario.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <H3>Stock actual de productos</H3>
+            <hr>
+            <p>Cantidad de productos disponibles, registrados en el sistema para la venta</p>
+            
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgragarProducto"> + Agregar Stock</button>
+    
+            <br>
+            <br>
+            <table id="tablaClientesTipo" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
+                    <thead>
+                        <tr class="table-dark">
+                        <th scope="col">Producto</th>
+                        <th scope="col">Unidades Disponibles</th>
+                        <th scope="col">Fecha vencimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+        </section>
+        <section>
+            <div class="alert alert-dismissible alert-warning">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <h4 class="alert-heading">Advertencia!</h4>
+                <p class="mb-0">Este es el ejemplo de un mensaje de alterta <a href="#" class="alert-link">Mas informacion</a>.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        
+    </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalAgragarProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #593196;">
+        <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Stock</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+        <button type="button" class="btn btn-success">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+</body>
+</html>

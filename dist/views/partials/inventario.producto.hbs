@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario productos</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/icon/favicon.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+            height: 150vh; 
+        }
+
+        #sectioncontenedor{
+            margin-left: 2vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 100%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> inventario.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <H3>Productos Registrados en el sistema</H3>
+            <hr>
+            <p>Registre los productos que el negocio comercializa</p>
+            
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevo"> + Agregar Producto</button>
+    
+            <br>
+            <br>
+            <table id="tablaProductos" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
+                    <thead>
+                        <tr class="table-dark">
+                        <th scope="col">Id</th>
+                        <th scope="col">Codigo Barras</th>
+                        <th scope="col">Nombre producto</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Clasificacion</th>
+                        <th scope="col">Presentacion</th>
+                        <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+        </section>
+        <section>
+            
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+<script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
+
+<script src="/js/sweetalert2@11.js"></script>
+
+
+
+
+<div class="modal fade" id="modalNuevo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #9655f7;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-codigoBarras-crear" placeholder="" name="codigoBarrasCrear" required>
+                        <label for="floatingInput">Codigo Barras</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-nombre-crear" placeholder="" name="nombreCrear" required>
+                        <label for="floatingInput">Nombre del producto</label>
+                    </div>
+
+                     <div class="form-group">
+
+                                <label for="select1" class="form-label mt-4">Tipo de producto</label>
+                                <select class="form-select" id="select-type-product2" name="tipo">
+                        
+                                </select>
+                            
+                            
+                                <label for="select1" class="form-label mt-4">Marca de producto</label>
+                                <select class="form-select" id="select-marcas-product2" name="marca">
+                
+                                </select>
+                            
+                            
+                                <label for="select1" class="form-label mt-4">Presentacion de producto</label>
+                                <select class="form-select" id="select-present-product2" name="presentacion">
+                                </select>
+
+                    </div>
+                    <p class="text-danger" id="alert-input-2"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="agregar()">Guardar</button>
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar  -->
+<div class="modal fade" id="modalEditarProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #9655f7;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Editar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-id-edit" placeholder="" name="id" hidden required >
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-codigoBarras-edit" placeholder="" name="codigoBarras-edit" required>
+                        <label for="floatingInput">Codigo Barras</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-nombre-edit" placeholder="" name="nombre-edit" required>
+                        <label for="floatingInput">Nombre del producto</label>
+                    </div>
+
+                     <div class="form-group">
+
+                                <label for="select1" class="form-label mt-4">Tipo de producto</label>
+                                <select class="form-select" id="select-type-product" name="tipoClienteId">
+                        
+                                </select>
+                            
+                            
+                                <label for="select1" class="form-label mt-4">Marca de producto</label>
+                                <select class="form-select" id="select-marcas-product" name="tipoClienteId">
+                
+                                </select>
+                            
+                            
+                                <label for="select1" class="form-label mt-4">Presentacion de producto</label>
+                                <select class="form-select" id="select-present-product" name="tipoClienteId">
+                                </select>
+
+                    </div>
+                    <p class="text-danger" id="alert-input-2"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="postEditar()">Guardar</button>
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="/js/inventario.producto.js"></script>
+</body>
+</html>

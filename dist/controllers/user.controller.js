@@ -432,6 +432,7 @@ var userView = function userView(req, res) {
   var tokenUser = cookies.xtoken;
   var user = (0, _tokenUser.idUserToken)(tokenUser);
   res.render('usuarios.index.hbs', {
+    titulo: 'Usuarios',
     message: 'Pagina de usuarios',
     sesionUser: user
   });
@@ -444,6 +445,7 @@ var userNewView = function userNewView(req, res) {
   var tokenUser = cookies.xtoken;
   var user = (0, _tokenUser.idUserToken)(tokenUser);
   res.render('usuario.nuevo.hbs', {
+    titulo: 'Usuarios',
     mensaje: "inicio",
     sesionUser: user
   });

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>proveedor tipo</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/icon/favicon.png">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+            height: 150vh; 
+        }
+
+        #sectioncontenedor{
+            margin-left: 2vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 45%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> inventario.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <H3>Clasifique sus proveedores</H3>
+            <hr>
+            <p>Defina que tipo de proveedores tiene en negocio, ejemplo: de productos, de servicios, etc.</p>
+            
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevoProveedorT"> + Nuevo proveedor tipo</button>
+    
+            <br>
+            <br>
+            <table id="tablaProveedorTipo" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
+                    <thead>
+                        <tr class="table-dark">
+                        <th scope="col">id</th>
+                        <th scope="col">producto o servicio</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+        </section>
+        <section>
+            <div class="alert alert-dismissible alert-warning">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <h4 class="alert-heading">Advertencia!</h4>
+                <p class="mb-0">Este es el ejemplo de un mensaje de alterta <a href="#" class="alert-link">Mas informacion</a>.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+<!-- Modal nuevo -->
+<div class="modal fade" id="modalNuevoProveedorT" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #593196;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Agregar Clasificación de proveedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-servicio" placeholder="" name="descripcion-edit" required>
+                        <label for="floatingInput">Tipo de servicio o producto</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-descripcion" placeholder="" name="descripcion-edit" required>
+                        <label for="floatingInput">Descripción </label>
+                    </div>
+
+                    <p class="text-danger" id="alert-input-1"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="agregar()">Agregar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+
+<div class="modal fade" id="modalEditarProveedorT" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #9655f7;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Editar Tipo de proveedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-id-edit" placeholder="" name="id" hidden required >
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-servicio-edit" placeholder="" name="descripcion-edit" required>
+                        <label for="floatingInput">Tipo de servicio o producto</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-descripcion-edit" placeholder="" name="descripcion-edit" required>
+                        <label for="floatingInput">Descripción </label>
+                    </div>
+
+                    <p class="text-danger" id="alert-input-2"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="postEditar()">Guardar</button>
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
+<script src="/js/sweetalert2@11.js"></script>
+
+<script src="/js/inventario.proveedor.tipo.js"></script>
+
+</body>
+</html>

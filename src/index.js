@@ -5,6 +5,7 @@ import app from './app';
 import usuarioRutas from './routes/user.routes';
 import loginRutas from './routes/login.router';
 import clienteRutas from './routes/cliente.router';
+import inventarioRutas from './routes/inventario.router';
 
 
 /*
@@ -14,6 +15,7 @@ import {getConnection} from './database/conection';*/
 app.use(loginRutas);
 app.use(usuarioRutas);
 app.use(clienteRutas);
+app.use(inventarioRutas);
 
 
 async function init() {
