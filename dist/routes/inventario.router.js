@@ -27,6 +27,8 @@ var _inventario2 = require("../controllers/inventario.proveedor");
 
 var _inventarioProveedor2 = require("../controllers/inventario.proveedor.pro");
 
+var _inventarioStock = require("../controllers/inventario.stock.controller");
+
 var router = (0, _express.Router)(); // Vistas 
 
 router.get('/inventario', _inventario.inventarioView);
@@ -97,6 +99,10 @@ router.get('/api/get-precios', _inventarioPrecio.getPrecios);
 router.get('/api/get-precios/:idprecio', _inventarioPrecio.getPreciosId);
 router.post('/api/post-precio', _inventarioPrecio.postPrecio);
 router.put('/api/put-precios/:idprecio', _inventarioPrecio.putPrecio);
-router["delete"]('/api/delete-precios/:idprecio', _inventarioPrecio.deletePrecio);
+router["delete"]('/api/delete-precios/:idprecio', _inventarioPrecio.deletePrecio); // STOCK PRODUCTOS
+
+router.get('/api/get-stock', _inventarioStock.getStock);
+router.get('/api/get-stock/:id', _inventarioStock.getStockId);
+router.put('/api/put-stock/:id', _inventarioStock.putStock);
 var _default = router;
 exports["default"] = _default;

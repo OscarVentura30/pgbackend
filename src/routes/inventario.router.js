@@ -23,6 +23,8 @@ import {getproveedor, getProveedorId, postproveedor,
 import {getProdProv, getProdProvId, getProdProvTableId,
         postProdProv, putProdProv, deleteProdProv} from '../controllers/inventario.proveedor.pro';
 
+import {getStock, getStockId, putStock} from '../controllers/inventario.stock.controller';
+
 
 const router = Router();
 
@@ -170,5 +172,13 @@ router.post('/api/post-precio', postPrecio);
 router.put('/api/put-precios/:idprecio', putPrecio);
 
 router.delete('/api/delete-precios/:idprecio', deletePrecio);
+
+// STOCK PRODUCTOS
+
+router.get('/api/get-stock', getStock);
+
+router.get('/api/get-stock/:id', getStockId)
+
+router.put('/api/put-stock/:id', putStock)
  
 export default router; 

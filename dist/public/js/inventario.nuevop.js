@@ -161,7 +161,7 @@ async function agregar() {
     
     if (codigoBarras == null || codigoBarras =="" || codigoBarras == " ") {
 
-        codigoBarras = 'N_R'
+        codigoBarras = 'no_registrado'
     }
 
     const datos = {

@@ -156,7 +156,7 @@ async function agregar() {
 
     const postUrl ='/api/postfull-productos'; 
     
-    const codigo =document.getElementById('input-codigoBarras-crear').value;
+    var codigo =document.getElementById('input-codigoBarras-crear').value;
     const producto =document.getElementById('input-nombre-crear').value;
     const tipo =document.getElementById('select-type-product2').value;
     const marca =document.getElementById('select-marcas-product2').value;
@@ -167,6 +167,11 @@ async function agregar() {
 
         document.getElementById('alert-input-2').textContent = 'Error: Dato invalido';
         return;
+    }
+
+    if (codigo == null || codigo =="" || codigo == " ") {
+
+        codigo = 'no_registrado'
     }
 
     const data = {

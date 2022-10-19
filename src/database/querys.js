@@ -141,58 +141,67 @@ export const queries = {
         postFullProducts: ` 
         BEGIN TRY
             BEGIN TRAN
-            DECLARE @id int
+                if @codigoBarras is null set @codigoBarras = 'no_registrado' 
+                if not exists(select * from producto_t where codigoBarras = @codigoBarras and nombre = @nombre)
+                    BEGIN
+                    DECLARE @id int
+                    DECLARE @date date = SYSDATETIME()
 
-            if @marcaId is null
-            begin 
-            set @marcaId =1
-            end
+                    if @marcaId is null
+                    begin 
+                    set @marcaId =1
+                    end
 
-            if @clasificacionId is null
-            begin 
-            set @clasificacionId =1
-            end
+                    if @clasificacionId is null
+                    begin 
+                    set @clasificacionId =1
+                    end
 
-            if @presentacionId is null
-            begin 
-            set @presentacionId =1
-            end
+                    if @presentacionId is null
+                    begin 
+                    set @presentacionId =1
+                    end
 
-            if @contenidoId is null
-            begin 
-            set @contenidoId =1
-            end
+                    if @contenidoId is null
+                    begin 
+                    set @contenidoId =1
+                    end
 
-            if @precioVenta is null
-            begin 
-            set @precioVenta = 0
-            end
+                    if @precioVenta is null
+                    begin 
+                    set @precioVenta = 0
+                    end
 
-            if @proveedorId is null
-            begin 
-            set @proveedorId = 1
-            end
+                    if @proveedorId is null
+                    begin 
+                    set @proveedorId = 1
+                    end
 
-            if @precioCompra is null
-            begin 
-            set @precioCompra = 0
-            end
+                    if @precioCompra is null
+                    begin 
+                    set @precioCompra = 0
+                    end
 
 
-            insert into producto_t(codigoBarras, nombre) values (@codigoBarras, @nombre)
+                    insert into producto_t(codigoBarras, nombre) values (@codigoBarras, @nombre)
 
-            SET @id = SCOPE_IDENTITY()
+                    SET @id = SCOPE_IDENTITY()
 
-            insert into detalleProducto_t (productoId, marcaId, clasificacionId, presentacionId) 
-            values (@id, @marcaId,@clasificacionId,@presentacionId)
+                    insert into detalleProducto_t (productoId, marcaId, clasificacionId, presentacionId) 
+                    values (@id, @marcaId,@clasificacionId,@presentacionId)
 
-            insert into precio_t(productoId,contenidoId,precioVenta)
-            values (@id, @contenidoId ,@precioVenta)
+                    insert into precio_t(productoId,contenidoId,precioVenta)
+                    values (@id, @contenidoId ,@precioVenta)
 
-            insert into productoProveedor_t (productoId, proveedorId, precioCompra)
-            values(@id,@proveedorId,@precioCompra)
+                    insert into productoProveedor_t (productoId, proveedorId, precioCompra)
+                    values(@id,@proveedorId,@precioCompra)
+
+                    insert into stock_t(productoId, cantidad, vencimiento)
+                    values (@id, 0, @date)
+                END
 
             COMMIT TRAN
+
         END TRY
         BEGIN CATCH
             select ERROR_MESSAGE();
@@ -233,6 +242,17 @@ export const queries = {
         END CATCH`,
 
         deleteProducto: 'delete from producto_t where id = @id',
-        getProducto:'select * from producto_t'
+        getProducto:'select * from producto_t',
+
+    // STOCK DE PRODUCTOS
+
+        getStock: `select stock_t.id,codigoBarras, nombre, cantidad, CONVERT(varchar,vencimiento,103) as vencimiento
+        from stock_t 
+        inner join producto_t on (stock_t.productoId = producto_t.id)`,
+        getStockId: `select stock_t.id,codigoBarras, nombre, cantidad, CONVERT(varchar,vencimiento,103) as vencimiento
+        from stock_t 
+        inner join producto_t on (stock_t.productoId = producto_t.id)
+        where stock_t.id = @id`,
+        putStockId: `update stock_t set cantidad = @cantidad, vencimiento = CONVERT(date, @vencimiento,103)  where id = @id `
     
 }
