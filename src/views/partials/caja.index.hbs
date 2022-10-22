@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAJA</title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/icon/favicon.png">
+
+    <link rel="stylesheet" href="/lib/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.standalone.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+             height: 120vh; 
+             width: 10vw;
+        }
+
+        #sectioncontenedor{
+            margin-left: 2vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 45%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> caja.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <H3>Datos de venta</H3>
+            <hr>
+            <p>Datos del productos</p>
+            <br>
+            <br>
+
+           <div class="row">
+            <div class="col-sm-3">
+                <label for="codigo" class="form-label" id="">Codigo Barras (Auto)</label>
+
+                <input type="text" class="form-control" placeholder="Auto" aria-label="City" id="input-search-code">
+
+                <p class="text-danger" id="alert-input-1"></p>
+                <p class="text-success" id="alert-input-2"></p>
+            </div>
+            <div class="col-md-4">
+                <label for="select1" class="form-label">Buscar producto (Manual)</label>
+                <select class="form-select" id="select-product" name="productoNombre">
+                </select>
+            </div>
+            <div class="col-md-4">
+                <br>
+                <button type="button" class="btn btn-success btn-lg" id="addRow" >Agregar</button>
+            </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="codigo" class="form-label">seleccione cliente</label>
+                    <select class="form-select" id="select-client" name="Cliente">
+                </select>
+                </div>
+            </div>
+            
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>producto</th>
+                        <th>Tamaño</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Articulos: </th>
+                        <th></th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-danger" id="quitar" >Quitar productos </button>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Total:</p>
+                        </div>
+                        <div class="col-sm-3">
+                             <span class="badge rounded-pill bg-success" id="total"></span>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg" id="vender" disabled >Vender</button>
+                </div>
+            </div>
+            
+
+
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        
+    </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form onsubmit="return false">
+            <div class="modal-header" style="background-color: #8e59df;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Editar Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <input type="text" id="idStock" hidden>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="input-producto" placeholder="" name="producto" readonly>
+                        <label for="floatingInput">Producto</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="input-cantidad" placeholder="" name="cantidad" required>
+                        <label for="floatingInput">Unidades Disponibles</label>
+                    </div>
+
+                    <label for="input-date" class="form-label mt-4">Fecha de vencimiento</label>
+                    <input type="text" class="form-control" id="input-date">
+
+                    <p class="text-danger" id="alert-input-1"></p>
+                 </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="postEditar()">Guardar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
+<script src="/lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.js"></script>
+<script src="/lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.es.min.js"></script>
+<script src="/js/sweetalert2@11.js"></script>
+
+<script src="/js/caja.index.js"></script>
+
+</body>
+</html>

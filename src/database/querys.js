@@ -253,6 +253,33 @@ export const queries = {
         from stock_t 
         inner join producto_t on (stock_t.productoId = producto_t.id)
         where stock_t.id = @id`,
-        putStockId: `update stock_t set cantidad = @cantidad, vencimiento = CONVERT(date, @vencimiento,103)  where id = @id `
+        putStockId: `update stock_t set cantidad = @cantidad, vencimiento = CONVERT(date, @vencimiento,103)  where id = @id `,
+
+    // VENTAS 
+
+        postVenta1: `
+        DECLARE @idUser int
+        DECLARE @date date = SYSDATETIME()
+        
+        set @idUser = (select id from usuario_t where userName = @userName)
+        
+        insert into venta_t (clienteId, usuarioId, fecha, estado, importe) 
+        OUTPUT inserted.id
+        values (@clienteId, @idUser , @date, 1, @importe)`,
+
+        postVenta2:`insert into detalleVenta_t (ventaId, productoId, salida)
+        values (@ventaId, @productoId, @salida);`,
+
+        getVentas: `select venta_t.id, cliente_t.nombre , cliente_t.nit , usuario_t.userName,CONVERT(varchar,venta_t.fecha,103) as fecha, venta_t.importe
+        from venta_t 
+        inner join cliente_t on (venta_t.clienteId = cliente_t.id)
+        inner join usuario_t on (venta_t.usuarioId = usuario_t.id)`,
+        getVentasId: `select detalleVenta_t.salida as cantidad , producto_t.nombre as descripcion
+        from detalleVenta_t 
+        inner join producto_t on (detalleVenta_t.productoId = producto_t.id)
+        where detalleVenta_t.ventaId = @id`
+
+
+
     
 }
