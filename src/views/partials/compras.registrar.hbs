@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAJA</title>
+    <title>Compras</title>
 
     <link rel="stylesheet" href="/css/fonta-all.min.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
@@ -25,7 +25,7 @@
         #menuLat{
             background-color: black;
              height: 120vh; 
-             width: 10vw;
+             width: 15vw;
         }
 
         #sectioncontenedor{
@@ -52,14 +52,14 @@
     <main id="principal">
 
         <nav  id="menuLat">
-            {{> caja.menu }}
+            {{> compras.menu }}
         </nav>
 
         <section id="sectioncontenedor" >
 
-            <H3>Datos de venta</H3>
+            <H3>Datos de La compra</H3>
             <hr>
-            <p>Datos del productos</p>
+            <p>seleccione los productos del productos</p>
             <br>
             <br>
 
@@ -78,17 +78,25 @@
                 </select>
             </div>
             <div class="col-md-4">
+                <label for="select1" class="form-label">Cantidad</label>
+                <input type="number" class="form-control" placeholder="0" aria-label="City" id="entrada">
+                  <p class="text-danger" id="alert-input-cantidad"></p>
+            </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="input-date" class="form-label mt-4">Fecha de vencimiento</label>
+                    <input type="text" class="form-control" id="input-date">
+                    <p class="text-danger" id="alert-input-fecha"></p>
+                </div>
+
+                <div class="col-md-4">
                 <br>
                 <button type="button" class="btn btn-success btn-lg" id="addRow" >Agregar</button>
-            </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="codigo" class="form-label">seleccione cliente</label>
-                    <select class="form-select" id="select-client" name="Cliente">
-                </select>
                 </div>
+
+            </div>
             </div>
             
             <table id="example" class="display" style="width:100%">
@@ -96,8 +104,11 @@
                     <tr>
                         <th>Id</th>
                         <th>producto</th>
-                        <th>Tamaño</th>
-                        <th>Precio</th>
+                        <th>Proveedor</th>
+                        <th>PrecioU</th>
+                        <th>cantidad</th>
+                        <th>importe</th>
+                        <th>vencimiento</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -112,7 +123,7 @@
             <br>
             <div class="row">
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-danger" id="quitar" >Quitar productos </button>
+                    <button type="button" class="btn btn-danger" id="quitar" disabled>Quitar productos </button>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
@@ -120,13 +131,21 @@
                             <p>Total:</p>
                         </div>
                         <div class="col-sm-3">
-                             <span class="badge rounded-pill bg-success" id=""><h2 id="total"></h2></span>
+                             <span class="badge rounded-pill bg-success" ><h2 id="total" >0</h2></span>
                         </div>
                     </div>
                 </div>
                 <br><br>
+                <div class="col-md-4">
+                    <div class="row">
+                        <label for="input-date" class="form-label mt-4">Descripcion: </label>
+                    </div>
+                    <div class="row">
+                        <textarea name="" id="descripcion" cols="30" rows="5"></textarea>
+                    </div>
+                </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-primary btn-lg" id="vender" disabled >Vender</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="vender" disabled >Confirmar Compra</button>
                 </div>
             </div>
             
@@ -144,49 +163,6 @@
         
     </script>
 
-
-<!-- Modal -->
-<div class="modal fade" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <form onsubmit="return false">
-            <div class="modal-header" style="background-color: #8e59df;">
-                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Editar Stock</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-
-                    <input type="text" id="idStock" hidden>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="input-producto" placeholder="" name="producto" readonly>
-                        <label for="floatingInput">Producto</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="input-cantidad" placeholder="" name="cantidad" required>
-                        <label for="floatingInput">Unidades Disponibles</label>
-                    </div>
-
-                    <label for="input-date" class="form-label mt-4">Fecha de vencimiento</label>
-                    <input type="text" class="form-control" id="input-date">
-
-                    <p class="text-danger" id="alert-input-1"></p>
-                 </div>
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
-                <button type="button" class="btn btn-success" onclick="postEditar()">Guardar</button>
-            </div>
-        </form>
-
-    </div>
-  </div>
-</div>
-
 <script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
 <script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
@@ -194,7 +170,7 @@
 <script src="/lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.es.min.js"></script>
 <script src="/js/sweetalert2@11.js"></script>
 
-<script src="/js/caja.index.js"></script>
+<script src="/js/compras.index.js"></script>
 
 </body>
 </html>

@@ -87,11 +87,11 @@ export const queries = {
         deleteproveedor: 'delete from proveedor_t where id = @id',
     
     //PROVEEDORES-PRODUCTOS
-        getproductosprov: `select productoProveedor_t.id, producto_t.codigoBarras, producto_t.nombre, proveedor_t.nombre as proveedor, productoProveedor_t.precioCompra, productoProveedor_t.plazoDias
+        getproductosprov: `select productoProveedor_t.id, producto_t.id as productoId, producto_t.codigoBarras, producto_t.nombre, proveedor_t.nombre as proveedor, productoProveedor_t.precioCompra, productoProveedor_t.plazoDias
         from productoProveedor_t 
         inner join producto_t on (productoProveedor_t.productoid = producto_t.id)
         inner join proveedor_t on (productoProveedor_t.proveedorid = proveedor_t.id)`,
-        getproductosprovId:`select productoProveedor_t.id, producto_t.codigoBarras, producto_t.nombre, proveedor_t.nombre as proveedor, productoProveedor_t.precioCompra, productoProveedor_t.plazoDias
+        getproductosprovId:`select productoProveedor_t.id,producto_t.id as productoId, producto_t.codigoBarras, producto_t.nombre, proveedor_t.nombre as proveedor, productoProveedor_t.precioCompra, productoProveedor_t.plazoDias
         from productoProveedor_t 
         inner join producto_t on (productoProveedor_t.productoid = producto_t.id)
         inner join proveedor_t on (productoProveedor_t.proveedorid = proveedor_t.id)
@@ -277,9 +277,38 @@ export const queries = {
         getVentasId: `select detalleVenta_t.salida as cantidad , producto_t.nombre as descripcion
         from detalleVenta_t 
         inner join producto_t on (detalleVenta_t.productoId = producto_t.id)
-        where detalleVenta_t.ventaId = @id`
+        where detalleVenta_t.ventaId = @id`,
 
+    //COMPRAS
 
+        postCompras1: `
+        DECLARE @idUser int
+        DECLARE @date date = SYSDATETIME()
+        
+        set @idUser = (select id from usuario_t where userName = @userName)
+        
+        insert into compra_t (fechaIngreso, usuarioId, descripcion, importe) 
+        OUTPUT inserted.id
+        values (CONVERT(date, @date, 103), @idUser , @descripcion, @importe)
+        `,
 
+        postCompra2: `
+        insert into detalleCompra_t (compraId, productoId, fechaVencimiento, entrada)
+        values (@compraId, @productoId, CONVERT(date,@fechaVencimiento ,103) , @entrada)
+        `,
+
+        getCompras: `
+        select compra_t.id ,  CONVERT(varchar,compra_t.fechaIngreso,103) as fechaIngreso, usuario_t.userName, compra_t.descripcion, compra_t.importe
+        from compra_t 
+        inner join 
+        usuario_t on (compra_t.usuarioId = usuario_t.id)
+        `,
+
+        getComprasId: `
+        select nombre, entrada,  CONVERT(varchar,fechaVencimiento,103) as fechaVencimiento
+        from detalleCompra_t
+        inner join producto_t on (detalleCompra_t.productoId = producto_t.id)
+        where compraId = @id
+        `
     
 }

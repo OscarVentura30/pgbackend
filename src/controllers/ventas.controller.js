@@ -3,7 +3,7 @@ import {getConnection, sql, queries} from '../database';
 
 export const ventasView = (req, res) => {
 
-    const {cookies} = req ;
+    const {cookies} = req ; 
 
     const tokenUser = cookies.xtoken;
 
