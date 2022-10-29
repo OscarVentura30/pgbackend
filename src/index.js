@@ -10,7 +10,7 @@ import ventasRutas from './routes/ventas.routes';
 import cajaRutas from './routes/caja.routes';
 import comprasRutas from './routes/compras.routes';
 import facturaCompras from './routes/factura.routes';
-
+import dashboardRutas from './routes/dashboard.router';
 
 /*
 import {getConnection} from './database/conection';*/
@@ -24,6 +24,7 @@ app.use(ventasRutas);
 app.use(cajaRutas)
 app.use(comprasRutas);
 app.use(facturaCompras);
+app.use(dashboardRutas);
 
 async function init() {
 
