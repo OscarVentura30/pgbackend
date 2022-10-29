@@ -274,6 +274,14 @@ export const queries = {
         from venta_t 
         inner join cliente_t on (venta_t.clienteId = cliente_t.id)
         inner join usuario_t on (venta_t.usuarioId = usuario_t.id)`,
+
+        getVentas1: `select venta_t.id, cliente_t.nombre , cliente_t.nit , usuario_t.userName,CONVERT(varchar,venta_t.fecha,103) as fecha, venta_t.importe
+        from venta_t 
+        inner join cliente_t on (venta_t.clienteId = cliente_t.id)
+        inner join usuario_t on (venta_t.usuarioId = usuario_t.id)
+        where venta_t.id = @id
+        `,
+
         getVentasId: `select detalleVenta_t.salida as cantidad , producto_t.nombre as descripcion
         from detalleVenta_t 
         inner join producto_t on (detalleVenta_t.productoId = producto_t.id)

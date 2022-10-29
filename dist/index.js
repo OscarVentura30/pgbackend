@@ -14,6 +14,10 @@ var _ventas = _interopRequireDefault(require("./routes/ventas.routes"));
 
 var _caja = _interopRequireDefault(require("./routes/caja.routes"));
 
+var _compras = _interopRequireDefault(require("./routes/compras.routes"));
+
+var _factura = _interopRequireDefault(require("./routes/factura.routes"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -37,6 +41,10 @@ _app["default"].use(_inventario["default"]);
 _app["default"].use(_ventas["default"]);
 
 _app["default"].use(_caja["default"]);
+
+_app["default"].use(_compras["default"]);
+
+_app["default"].use(_factura["default"]);
 
 function init() {
   return _init.apply(this, arguments);

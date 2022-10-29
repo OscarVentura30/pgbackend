@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas </title>
+    <title>Factura </title>
 
     <link rel="stylesheet" href="/css/fonta-all.min.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/icon/favicon.png">
 
-    <link rel="stylesheet" href="/lib/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.standalone.css">
+    <script src="/lib/pdf/html2pdf.bundle.min.js"></script>
+    <script src="/lib/pdf/html2pdf.bundle.js"></script>
+
     
 
     <style>
@@ -51,41 +53,52 @@
     <main id="principal">
 
         <nav  id="menuLat">
-            {{> ventas.menu }}
+            {{> factura.menu }}
         </nav>
 
         <section id="sectioncontenedor" >
-
-            <H3>Ventas del negocio</H3>
+            <h3>No. <p id="idVenta">{{ idventa }} </p> </h3>
+               
+            
+            <div class="" id="generar">
             <hr>
-            <p>click para mas detalles</p>
+            <p>Datos Generales</p>
             <div class="row">
             <div class="col-md-4">
-                <h2>Suma de ventas:</h2>
+                <h5>Cliente:</h5> <label id="lblcliente"></label>
+                <h5>NIT:</h5>  <label id="lblnit"></label>
+                <h5>fecha: </h5> <label id="lbldate"></label>
+                <h5>Total: </h5> <label id="lbltotal"></label>
+                <h5>usuario: </h5> <label id="lblusuario"></label>
+                
             </div>
-                <div class="col-md-4">
-                    <span class="badge bg-success"><h2 id="totalDisplay">0</h2></span>
+                <div class="col-md-4" >
+                    <img src="/img/Logo Minimercado.png" alt="" style="height: 150px ; width: 150px;">
                 </div>
             </div>
             
             <table id="tablaVentas" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
                     <thead>
                         <tr class="table-dark">
-                        <th scope="col">No.</th>
-                        <th scope="col">Nombre Cliente</th>
-                        <th scope="col">NIT</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Importe</th>
-                        <th scope="col">Opciones</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Producto</th>
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
                 </table>
+            </div>
 
         </section>
+        <section>
+            <br><br>
+            <button type="button" class="btn btn-success btn-lg" id="confirmar" onclick="generar()">Confirmar</button>
+            <a href="/factura">
+            <button type="button" class="btn btn-danger btn-lg" id="confirmar" >Cancelar</button>
+            </a>
+        </section>
+        
 
     </main>
 
@@ -98,40 +111,7 @@
     </script>
 
 
-<!-- Modal -->
-<div class="modal fade" id="VentasDetalle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-            <div class="modal-header" style="background-color: #8e59df;">
-                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Detalles de venta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
 
-                    <table id="tableDetalle" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
-                        <thead>
-                            <tr class="table-dark">
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Descripcion</th>
-                            </tr>
-                        </thead>
-                    </table>
-
-                </div>
-
-                
-
-                
-            
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
-            </div>
-    </div>
-  </div>
-</div>
 
 <script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
 <script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
@@ -139,6 +119,6 @@
 <script src="/lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.js"></script>
 <script src="/lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.es.min.js"></script>
 
-<script src="/js/ventas.index.js"></script>
+<script src= "/js/factura.confirm.js"></script>
 </body>
 </html>

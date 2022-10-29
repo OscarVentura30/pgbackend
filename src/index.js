@@ -9,6 +9,7 @@ import inventarioRutas from './routes/inventario.router';
 import ventasRutas from './routes/ventas.routes';
 import cajaRutas from './routes/caja.routes';
 import comprasRutas from './routes/compras.routes';
+import facturaCompras from './routes/factura.routes';
 
 
 /*
@@ -22,6 +23,7 @@ app.use(inventarioRutas);
 app.use(ventasRutas);
 app.use(cajaRutas)
 app.use(comprasRutas);
+app.use(facturaCompras);
 
 async function init() {
 

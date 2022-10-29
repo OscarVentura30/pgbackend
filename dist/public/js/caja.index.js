@@ -154,7 +154,9 @@ $(document).ready(function () {
                         document.getElementById('alert-input-2').textContent = 'Correcto';
 
                         
-                            t.row.add([x.productoId, x.nombre, x.descripcion,'Q'+ x.precioVenta,'1']).draw(false);
+                            t.row.add([x.productoId, x.nombre, x.descripcion, x.precioVenta,'1']).draw(false);
+                            total = total + x.precioVenta;
+                            totalint.textContent = total;
                     
                     
                         break;

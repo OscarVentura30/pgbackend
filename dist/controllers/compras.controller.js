@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ventasView = exports.getVentas = exports.getVentaId = exports.getVenta1 = void 0;
+exports.postCompra2 = exports.postCompra1 = exports.getComprasId = exports.getCompras = exports.comprasView = exports.comprasRegistrarView = void 0;
 
 var _tokenUser = require("../helpers/tokenUser");
 
@@ -17,69 +17,85 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var ventasView = function ventasView(req, res) {
+var comprasView = function comprasView(req, res) {
   var cookies = req.cookies;
   var tokenUser = cookies.xtoken;
   var user = (0, _tokenUser.idUserToken)(tokenUser);
-  res.render('ventas.index.hbs', {
-    titulo: 'Ventas',
+  res.render('compras.index.hbs', {
+    titulo: 'compras',
     sesionUser: user
   });
 };
 
-exports.ventasView = ventasView;
+exports.comprasView = comprasView;
 
-var getVentas = /*#__PURE__*/function () {
+var comprasRegistrarView = function comprasRegistrarView(req, res) {
+  var cookies = req.cookies;
+  var tokenUser = cookies.xtoken;
+  var user = (0, _tokenUser.idUserToken)(tokenUser);
+  res.render('compras.registrar.hbs', {
+    titulo: 'compras-registrar',
+    sesionUser: user
+  });
+};
+
+exports.comprasRegistrarView = comprasRegistrarView;
+
+var postCompra1 = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var pool, result;
+    var _req$body, userName, descripcion, importe, id, pool, result;
+
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.prev = 0;
-            _context.next = 3;
+            _req$body = req.body, userName = _req$body.userName, descripcion = _req$body.descripcion, importe = _req$body.importe;
+            id = req.params.id;
+            _context.prev = 2;
+            _context.next = 5;
             return (0, _database.getConnection)();
 
-          case 3:
+          case 5:
             pool = _context.sent;
-            _context.next = 6;
-            return pool.request().query(_database.queries.getVentas);
+            _context.next = 8;
+            return pool.request().input("userName", _database.sql.VarChar, userName).input("descripcion", _database.sql.VarChar, descripcion).input("importe", _database.sql.Numeric(18, 2), importe).query(_database.queries.postCompras1);
 
-          case 6:
+          case 8:
             result = _context.sent;
             res.json(result.recordset);
-            _context.next = 14;
+            _context.next = 16;
             break;
 
-          case 10:
-            _context.prev = 10;
-            _context.t0 = _context["catch"](0);
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](2);
             res.status(500);
             res.send(_context.t0.message);
 
-          case 14:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 10]]);
+    }, _callee, null, [[2, 12]]);
   }));
 
-  return function getVentas(_x, _x2) {
+  return function postCompra1(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
 
-exports.getVentas = getVentas;
+exports.postCompra1 = postCompra1;
 
-var getVentaId = /*#__PURE__*/function () {
+var postCompra2 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var id, pool, result;
+    var _req$body2, compraId, productoId, fechaVencimiento, entrada, pool, result;
+
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            id = req.params.id;
+            _req$body2 = req.body, compraId = _req$body2.compraId, productoId = _req$body2.productoId, fechaVencimiento = _req$body2.fechaVencimiento, entrada = _req$body2.entrada;
             _context2.prev = 1;
             _context2.next = 4;
             return (0, _database.getConnection)();
@@ -87,97 +103,131 @@ var getVentaId = /*#__PURE__*/function () {
           case 4:
             pool = _context2.sent;
             _context2.next = 7;
-            return pool.request().input("id", _database.sql.Int, id).query(_database.queries.getVentasId);
+            return pool.request().input("compraId", _database.sql.Int, compraId).input("productoId", _database.sql.Int, productoId).input("fechaVencimiento", _database.sql.VarChar, fechaVencimiento).input("entrada", _database.sql.Int, entrada).query(_database.queries.postCompra2);
 
           case 7:
             result = _context2.sent;
-
-            if (!(result.rowsAffected == 0)) {
-              _context2.next = 10;
-              break;
-            }
-
-            return _context2.abrupt("return", res.status(400).json({
-              msg: 'Error: No se encuentra recurso'
-            }));
-
-          case 10:
-            res.json(result.recordset);
-            _context2.next = 17;
+            res.status(200).json({
+              msg: 'Ok: Insertar ok'
+            });
+            _context2.next = 15;
             break;
 
-          case 13:
-            _context2.prev = 13;
+          case 11:
+            _context2.prev = 11;
             _context2.t0 = _context2["catch"](1);
             res.status(500);
             res.send(_context2.t0.message);
 
-          case 17:
+          case 15:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 13]]);
+    }, _callee2, null, [[1, 11]]);
   }));
 
-  return function getVentaId(_x3, _x4) {
+  return function postCompra2(_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }();
 
-exports.getVentaId = getVentaId;
+exports.postCompra2 = postCompra2;
 
-var getVenta1 = /*#__PURE__*/function () {
+var getCompras = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var id, pool, result;
+    var pool, result;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return (0, _database.getConnection)();
+
+          case 3:
+            pool = _context3.sent;
+            _context3.next = 6;
+            return pool.request().query(_database.queries.getCompras);
+
+          case 6:
+            result = _context3.sent;
+            res.json(result.recordset);
+            _context3.next = 14;
+            break;
+
+          case 10:
+            _context3.prev = 10;
+            _context3.t0 = _context3["catch"](0);
+            res.status(500);
+            res.send(_context3.t0.message);
+
+          case 14:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 10]]);
+  }));
+
+  return function getCompras(_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.getCompras = getCompras;
+
+var getComprasId = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var id, pool, result;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
             id = req.params.id;
-            _context3.prev = 1;
-            _context3.next = 4;
+            _context4.prev = 1;
+            _context4.next = 4;
             return (0, _database.getConnection)();
 
           case 4:
-            pool = _context3.sent;
-            _context3.next = 7;
-            return pool.request().input("id", _database.sql.Int, id).query(_database.queries.getVentas1);
+            pool = _context4.sent;
+            _context4.next = 7;
+            return pool.request().input("id", _database.sql.Int, id).query(_database.queries.getComprasId);
 
           case 7:
-            result = _context3.sent;
+            result = _context4.sent;
 
             if (!(result.rowsAffected == 0)) {
-              _context3.next = 10;
+              _context4.next = 10;
               break;
             }
 
-            return _context3.abrupt("return", res.status(400).json({
+            return _context4.abrupt("return", res.status(400).json({
               msg: 'Error: No se encuentra recurso'
             }));
 
           case 10:
             res.json(result.recordset);
-            _context3.next = 17;
+            _context4.next = 17;
             break;
 
           case 13:
-            _context3.prev = 13;
-            _context3.t0 = _context3["catch"](1);
+            _context4.prev = 13;
+            _context4.t0 = _context4["catch"](1);
             res.status(500);
-            res.send(_context3.t0.message);
+            res.send(_context4.t0.message);
 
           case 17:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3, null, [[1, 13]]);
+    }, _callee4, null, [[1, 13]]);
   }));
 
-  return function getVenta1(_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function getComprasId(_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }();
 
-exports.getVenta1 = getVenta1;
+exports.getComprasId = getComprasId;
