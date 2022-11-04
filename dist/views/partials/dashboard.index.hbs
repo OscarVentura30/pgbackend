@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas </title>
+
+    <link rel="stylesheet" href="/css/fonta-all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/icon/favicon.png">
+
+    <link rel="stylesheet" href="/lib/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.standalone.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.0.2/css/searchPanes.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
+    
+
+    <style>
+        #principal{
+            display: flex; 
+            height: 95vh ;
+            width: 95vw;
+        }
+
+        #menuLat{
+            background-color: black;
+             height: 150vh; 
+             width: 12vw;
+        }
+
+        #sectioncontenedor{
+            margin-left: 2vw; 
+            margin-top:2vw; 
+            height: 100%; 
+            width: 45%;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            {{> nav }}
+        </nav>
+
+    </header>
+
+    <main id="principal">
+
+        <nav  id="menuLat">
+            {{> dashboard.menu }}
+        </nav>
+
+        <section id="sectioncontenedor" >
+
+            <H3>Reporte de Ventas</H3>
+            <hr>
+            <p>click para mas detalles</p>
+            <div class="row">
+            <div class="col-md-4">
+                <h2>Suma de ventas:</h2>
+            </div>
+                <div class="col-md-4">
+                    <span class="badge bg-success"><h2 id="totalDisplay">0</h2></span>
+                </div>
+            </div>
+            
+            <table id="tablaVentas" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
+                    <thead>
+                        <tr class="table-dark">
+                        <th scope="col">No.</th>
+                        <th scope="col">Nombre Cliente</th>
+                        <th scope="col">NIT</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        
+    </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="VentasDetalle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+            <div class="modal-header" style="background-color: #8e59df;">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Detalles de venta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+
+                    <table id="tableDetalle" class="table table-hover" style="width:auto ; height: auto; border: 5px;"  >
+                        <thead>
+                            <tr class="table-dark">
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Descripcion</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+
+                
+
+                
+            
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Cerrar</button>
+            </div>
+    </div>
+  </div>
+</div>
+<!--
+<script type="text/javascript" language="javascript" src="/DataTables/jQuery-3.6.0/jquery-3.6.0.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/DataTables/dataTables.bootstrap5.min.js"></script>
+<script src="/lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.js"></script>
+<script src="/lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.es.min.js"></script>
+
+-->
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchpanes/2.0.2/js/dataTables.searchPanes.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+
+<script src="/js/dashboard.index.js"></script>
+
+
+</body>
+</html>

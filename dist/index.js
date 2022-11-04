@@ -18,6 +18,8 @@ var _compras = _interopRequireDefault(require("./routes/compras.routes"));
 
 var _factura = _interopRequireDefault(require("./routes/factura.routes"));
 
+var _dashboard = _interopRequireDefault(require("./routes/dashboard.router"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -45,6 +47,8 @@ _app["default"].use(_caja["default"]);
 _app["default"].use(_compras["default"]);
 
 _app["default"].use(_factura["default"]);
+
+_app["default"].use(_dashboard["default"]);
 
 function init() {
   return _init.apply(this, arguments);
